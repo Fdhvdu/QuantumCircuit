@@ -70,22 +70,24 @@ namespace
 	Split_t find_path(const Cycle_t &cycle,const size_t bit)
 	{
 		Split_t gate(cycle.size());	//not {}
-		for(size_t i{0};i!=gate.size();++i)
-		{
+		nAlgorithm::for_each<size_t>(0,gate.size(),[&](const auto i){
 			gate[i].first=i;	//for next_permutation in step3_permutate_cycle
+		});
+		nAlgorithm::for_each<size_t>(0,gate.size(),[&,bit](const auto i){
 			find_path_impl(cycle[i],gate[i].second,bit);
-		}
+		});
 		return gate;
 	}
 
 	Split_t find_path_random(mt19937 &mt,const Cycle_t &cycle,const size_t bit)
 	{
 		Split_t gate(cycle.size());	//not {}
-		for(size_t i{0};i!=gate.size();++i)
-		{
+		nAlgorithm::for_each<size_t>(0,gate.size(),[&](const auto i){
 			gate[i].first=i;	//for next_permutation in step3_permutate_cycle
+		});
+		nAlgorithm::for_each<size_t>(0,gate.size(),[&,bit](const auto i){
 			find_path_impl_random(mt,cycle[i],gate[i].second,bit);
-		}
+		});
 		return gate;
 	}
 
@@ -99,9 +101,11 @@ namespace
 				const CPath<Func_t::value_type> path{cycle[i],cycle[i-1]};
 				const auto routeCount{route(path.size())};
 				vec_CQCircuit temp{path.size()*routeCount,vec_CQCircuit::value_type{bit}};
-				for(size_t j{0};j!=path.size();++j)
-					for(size_t k{0};k!=routeCount;++k)
+				nAlgorithm::for_each<size_t>(0,path.size(),[=,&temp,&path](const auto j){
+					nAlgorithm::for_each<size_t>(0,routeCount,[=,&temp,&path](const auto k){
 						temp[j*routeCount+k]=path_algorithm(path[j].begin(),path[j].end(),bit,k);
+					});
+				});
 				return temp;
 			});
 			vec.emplace_back(&pool.at(key));
@@ -156,13 +160,14 @@ namespace
 	{
 		Cycle_t cycle;
 		vector<nTool::Boolean> ready(func.size());	//not {}
-		for(size_t i{0};i!=ready.size();++i)
+		nAlgorithm::for_each<size_t>(0,ready.size(),[&](const auto i){
 			if(i!=func[i]&&!ready[i])	//i!=func[i], implicit conversion
 			{
 				cycle.emplace_back();	//push a empty object
 				for(auto j{i};!ready[j];ready[j]=true,j=func[j])
 					cycle.back().emplace_back(static_cast<Cycle_t::value_type::value_type>(j));
 			}
+		});
 		return cycle;
 	}
 	
@@ -188,7 +193,7 @@ namespace
 			next_permutation(cycle);
 		Split_t split{find_path_random(mt,cycle,bit)};
 		const auto temp{step3_permutate_cycle(split)};
-		for(pair<size_t,vec_const_vec_CQCircuit_ptr> &val:split)
+		for(const pair<size_t,vec_const_vec_CQCircuit_ptr> &val:split)
 			for(const vec_CQCircuit *val2:val.second)
 				delete val2;
 		return temp;
