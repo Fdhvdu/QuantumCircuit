@@ -8,7 +8,7 @@
 #include<stdexcept>	//logic_error
 #include<utility>	//move, pair
 #include<vector>
-#include"../../lib/header/algorithm/algorithm.h"	//unique_without_sort
+#include"../../lib/header/algorithm/algorithm.h"	//for_each, unique_without_sort
 #include"../../lib/header/math/math.h"	//Cantor_pairing_function
 #include"../../lib/header/thread/CThread_unordered_map.h"
 #include"../../lib/header/tool/Boolean.h"
@@ -103,12 +103,12 @@ namespace
 		for(size_t i{cycle.size()-1};i;--i)
 		{
 			const PoolKey_t key{cycle[i],cycle[i-1]};
-			pool.try_emplace_func(key,[=,&cycle]{
+			pool.try_emplace_func(key,[&,bit,i]{
 				const CPath<Func_t::value_type> path{cycle[i],cycle[i-1]};
 				const auto routeCount{route(path.size())};
 				vec_CQCircuit temp{path.size()*routeCount,vec_CQCircuit::value_type{bit}};
-				nAlgorithm::for_each<size_t>(0,path.size(),[=,&temp,&path](const auto j){
-					nAlgorithm::for_each<size_t>(0,routeCount,[=,&temp,&path](const auto k){
+				nAlgorithm::for_each<size_t>(0,path.size(),[&,bit,routeCount](const auto j){
+					nAlgorithm::for_each<size_t>(0,routeCount,[&,bit,routeCount,j](const auto k){
 						temp[j*routeCount+k]=path_algorithm(path[j].begin(),path[j].end(),bit,k);
 					});
 				});
