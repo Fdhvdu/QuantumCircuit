@@ -117,8 +117,7 @@ namespace
 		for(size_t i{cycle.size()-1};i;--i)
 		{
 			const CPath<Func_t::value_type> path{cycle[i],cycle[i-1]};
-			uniform_int_distribution<size_t> dist{0,path.size()*route(path.size())-1};
-			const size_t choice{dist(mt)};
+			const auto choice{uniform_int_distribution<size_t>{0,path.size()*route(path.size())-1}(mt)};
 			vec.emplace_back(new vec_CQCircuit{1,path_algorithm(path[choice/path.size()].begin(),path[choice/path.size()].end(),bit,choice%path.size())});
 		}
 	}
@@ -188,8 +187,7 @@ namespace
 
 	vec_CQCircuit step2_rotate_cycle_random(mt19937 &mt,Cycle_t &cycle,const size_t bit)
 	{
-		uniform_int_distribution<size_t> dist{0,next_permutation_count(cycle)-1};
-		for(size_t choice{dist(mt)};choice--;)
+		for(auto choice{uniform_int_distribution<size_t>{0,next_permutation_count(cycle)-1}(mt)};choice--;)
 			next_permutation(cycle);
 		Split_t split{find_path_random(mt,cycle,bit)};
 		const auto temp{step3_permutate_cycle(split)};
@@ -214,8 +212,7 @@ namespace
 
 	vec_CQCircuit step3_permutate_cycle_random(mt19937 &mt,Split_t &split)
 	{
-		uniform_int_distribution<size_t> dist{0,next_permutation_count(split)-1};
-		for(size_t choice{dist(mt)};choice--;)
+		for(auto choice{uniform_int_distribution<size_t>{0,next_permutation_count(split)-1}(mt)};choice--;)
 			next_permutation(split.begin(),split.end(),[](const pair<size_t,vec_const_vec_CQCircuit_ptr> &lhs,const pair<size_t,vec_const_vec_CQCircuit_ptr> &rhs){return lhs.first<rhs.first;});
 		return step4_algorithm(split);
 	}
