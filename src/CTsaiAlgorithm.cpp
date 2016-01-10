@@ -8,6 +8,7 @@
 #include<stdexcept>	//logic_error
 #include<vector>
 #include"../../lib/header/algorithm/algorithm.h"	//unique_without_sort
+#include"../../lib/header/math/math.h"	//Cantor_pairing_function
 #include"../../lib/header/thread/CThread_unordered_map.h"
 #include"../../lib/header/tool/Boolean.h"
 #include"../header/TsaiAlgorithmFwd.h"
@@ -22,11 +23,6 @@ namespace
 {
 	typedef vector<vector<Func_t::value_type>> Cycle_t;
 	typedef pair<Func_t::value_type,Func_t::value_type> PoolKey_t;
-	inline size_t Cantor_pairing_function(const size_t k1,const size_t k2)
-		//invented by Georg Ferdinand Ludwig Philipp Cantor
-	{
-		return (k1+k2)*(k1+k2+1)/2+k2;
-	}
 	Split_t find_path(const Cycle_t &,size_t);
 	Split_t find_path_random(mt19937 &,const Cycle_t &,size_t);
 	void find_path_impl(const Cycle_t::value_type &,vec_const_vec_CQCircuit_ptr &,size_t);
@@ -63,8 +59,8 @@ namespace std
 		inline size_t operator()(const PoolKey_t &val) const
 		{
 			return val.first<val.second?
-				Cantor_pairing_function(val.first,val.second):
-				Cantor_pairing_function(val.second,val.first);
+				nMath::Cantor_pairing_function(val.first,val.second):
+				nMath::Cantor_pairing_function(val.second,val.first);
 		}
 	};
 }
