@@ -1,11 +1,12 @@
 #include"../header/CTsaiAlgorithm.h"
-#include<algorithm>	//min_element, rotate, sort
+#include<algorithm>	//min_element, rotate, sort, transform
 #include<chrono>	//for random
 #include<cstddef>	//size_t
 #include<functional>	//equal_to, hash
 #include<iterator>	//make_move_iterator
 #include<random>	//mt19937, uniform_int_distribution
 #include<stdexcept>	//logic_error
+#include<utility>	//move, pair
 #include<vector>
 #include"../../lib/header/algorithm/algorithm.h"	//unique_without_sort
 #include"../../lib/header/math/math.h"	//Cantor_pairing_function
@@ -23,13 +24,18 @@ namespace
 {
 	typedef vector<vector<Func_t::value_type>> Cycle_t;
 	typedef pair<Func_t::value_type,Func_t::value_type> PoolKey_t;
-	Split_t find_path(const Cycle_t &,size_t);
-	Split_t find_path_random(mt19937 &,const Cycle_t &,size_t);
+	typedef vector<pair<size_t,vec_const_vec_CQCircuit_ptr>> Split_with_index;
+	//index is for next_permutation in step3_permutate_cycle and step3_permutate_cycle_random
+
+	Split_with_index find_path(const Cycle_t &,size_t);
+	Split_with_index find_path_random(mt19937 &,const Cycle_t &,size_t);
 	void find_path_impl(const Cycle_t::value_type &,vec_const_vec_CQCircuit_ptr &,size_t);
 	void find_path_impl_random(mt19937 &,const Cycle_t::value_type &,vec_const_vec_CQCircuit_ptr &,size_t);
+	Split_t make_split(Split_with_index &);
+	void make_split_with_index(Split_with_index &,Split_t &);
 	bool next_permutation(Cycle_t &);
 	size_t next_permutation_count(const Cycle_t &);
-	inline size_t next_permutation_count(const Split_t &split)
+	inline size_t next_permutation_count(const Split_with_index &split)
 	{
 		return nMath::factorial(split.size());
 	}
@@ -37,8 +43,8 @@ namespace
 	Cycle_t step1_create_cycle(const Func_t &);
 	vec_CQCircuit step2_rotate_cycle(Cycle_t &,size_t);
 	vec_CQCircuit step2_rotate_cycle_random(mt19937 &,Cycle_t &,size_t);
-	vec_CQCircuit step3_permutate_cycle(Split_t &);
-	vec_CQCircuit step3_permutate_cycle_random(mt19937 &,Split_t &);
+	vec_CQCircuit step3_permutate_cycle(Split_with_index &);
+	vec_CQCircuit step3_permutate_cycle_random(mt19937 &,Split_with_index &);
 }
 
 namespace std
@@ -67,9 +73,9 @@ namespace std
 
 namespace
 {
-	Split_t find_path(const Cycle_t &cycle,const size_t bit)
+	Split_with_index find_path(const Cycle_t &cycle,const size_t bit)
 	{
-		Split_t gate(cycle.size());	//not {}
+		Split_with_index gate(cycle.size());	//not {}
 		nAlgorithm::for_each<size_t>(0,gate.size(),[&](const auto i){
 			gate[i].first=i;	//for next_permutation in step3_permutate_cycle
 		});
@@ -79,9 +85,9 @@ namespace
 		return gate;
 	}
 
-	Split_t find_path_random(mt19937 &mt,const Cycle_t &cycle,const size_t bit)
+	Split_with_index find_path_random(mt19937 &mt,const Cycle_t &cycle,const size_t bit)
 	{
-		Split_t gate(cycle.size());	//not {}
+		Split_with_index gate(cycle.size());	//not {}
 		nAlgorithm::for_each<size_t>(0,gate.size(),[&](const auto i){
 			gate[i].first=i;	//for next_permutation in step3_permutate_cycle
 		});
@@ -120,6 +126,21 @@ namespace
 			const auto choice{uniform_int_distribution<size_t>{0,path.size()*route(path.size())-1}(mt)};
 			vec.emplace_back(new vec_CQCircuit{1,path_algorithm(path[choice/path.size()].begin(),path[choice/path.size()].end(),bit,choice%path.size())});
 		}
+	}
+
+	Split_t make_split(Split_with_index &vec)
+	{
+		Split_t split;
+		split.reserve(vec.size());
+		transform(make_move_iterator(vec.begin()),make_move_iterator(vec.end()),back_inserter(split),[](pair<size_t,vec_const_vec_CQCircuit_ptr> &&val){return val.second;});
+		return split;
+	}
+
+	void make_split_with_index(Split_with_index &vec,Split_t &split)
+	{
+		nAlgorithm::for_each<size_t>(0,vec.size(),[&](const auto i){
+			vec[i].second=move(split[i]);
+		});
 	}
 
 	bool next_permutation(Cycle_t &cycle)
@@ -189,7 +210,7 @@ namespace
 	{
 		for(auto choice{uniform_int_distribution<size_t>{0,next_permutation_count(cycle)-1}(mt)};choice--;)
 			next_permutation(cycle);
-		Split_t split{find_path_random(mt,cycle,bit)};
+		Split_with_index split{find_path_random(mt,cycle,bit)};
 		const auto temp{step3_permutate_cycle(split)};
 		for(const pair<size_t,vec_const_vec_CQCircuit_ptr> &val:split)
 			for(const vec_CQCircuit *val2:val.second)
@@ -197,12 +218,15 @@ namespace
 		return temp;
 	}
 
-	vec_CQCircuit step3_permutate_cycle(Split_t &split)
+	vec_CQCircuit step3_permutate_cycle(Split_with_index &split_with_index)
 	{
 		vec_CQCircuit result;
 		do
+		{
+			auto split{make_split(split_with_index)};
 			move_insert(result,step4_algorithm(split));
-		while(next_permutation(split.begin(),split.end(),[](const pair<size_t,vec_const_vec_CQCircuit_ptr> &lhs,const pair<size_t,vec_const_vec_CQCircuit_ptr> &rhs){return lhs.first<rhs.first;}));
+			make_split_with_index(split_with_index,split);
+		}while(next_permutation(split_with_index.begin(),split_with_index.end(),[](const pair<size_t,vec_const_vec_CQCircuit_ptr> &lhs,const pair<size_t,vec_const_vec_CQCircuit_ptr> &rhs){return lhs.first<rhs.first;}));
 		erase_equal(result);
 		sort_by_size(result);
 		if(result.size())
@@ -210,11 +234,11 @@ namespace
 		return result;
 	}
 
-	vec_CQCircuit step3_permutate_cycle_random(mt19937 &mt,Split_t &split)
+	vec_CQCircuit step3_permutate_cycle_random(mt19937 &mt,Split_with_index &split_with_index)
 	{
-		for(auto choice{uniform_int_distribution<size_t>{0,next_permutation_count(split)-1}(mt)};choice--;)
-			next_permutation(split.begin(),split.end(),[](const pair<size_t,vec_const_vec_CQCircuit_ptr> &lhs,const pair<size_t,vec_const_vec_CQCircuit_ptr> &rhs){return lhs.first<rhs.first;});
-		return step4_algorithm(split);
+		for(auto choice{uniform_int_distribution<size_t>{0,next_permutation_count(split_with_index)-1}(mt)};choice--;)
+			next_permutation(split_with_index.begin(),split_with_index.end(),[](const pair<size_t,vec_const_vec_CQCircuit_ptr> &lhs,const pair<size_t,vec_const_vec_CQCircuit_ptr> &rhs){return lhs.first<rhs.first;});
+		return step4_algorithm(make_split(split_with_index));
 	}
 }
 

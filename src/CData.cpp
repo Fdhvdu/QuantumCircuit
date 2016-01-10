@@ -48,7 +48,7 @@ namespace
 		{
 			return key_;
 		}
-		const vec_CQCircuit& read() const noexcept
+		inline const vec_CQCircuit& read() const noexcept
 		{
 			return data_;
 		}
@@ -64,7 +64,7 @@ namespace
 	CData::key_t get_key(const CQCircuit &);
 	inline size_t get_split_size(const Split_t &vec)
 	{
-		return accumulate(vec.begin(),vec.end(),static_cast<size_t>(0),[](const size_t init,const pair<size_t,vec_const_vec_CQCircuit_ptr> &val){return init+val.second.size();});
+		return accumulate(vec.begin(),vec.end(),static_cast<size_t>(0),[](const size_t init,const vec_const_vec_CQCircuit_ptr &vec){return init+vec.size();});
 	}
 	vec_CQCircuit step5_dynamic(const Split_t &);
 	const vec_CQCircuit& step5_get_split_elem(const Split_t &,size_t);
@@ -138,7 +138,7 @@ namespace
 	vec_CQCircuit step5_dynamic(const Split_t &path)
 	{
 		const auto pathSize{get_split_size(path)};
-		vector<vector<Data_t>> vec(pathSize);
+		vector<vector<Data_t>> vec(pathSize);	//not {}
 		nAlgorithm::for_each<size_t>(0,vec.size(),[&,pathSize](const auto i){
 			vec[i].resize(pathSize-i);
 		});
@@ -158,9 +158,9 @@ namespace
 	const vec_CQCircuit& step5_get_split_elem(const Split_t &vec,const size_t subscript)
 	{
 		size_t i{0},j{0};
-		for(;vec[i].second.size()+j<=subscript;j+=vec[i].second.size(),++i)
+		for(;vec[i].size()+j<=subscript;j+=vec[i].size(),++i)
 			;
-		return *vec[i].second[subscript-j];
+		return *vec[i][subscript-j];
 	}
 }
 
