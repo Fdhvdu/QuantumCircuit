@@ -1,5 +1,5 @@
 #include"CPath.h"
-#include<algorithm>
+#include"../../lib/header/algorithm/algorithm.h"
 #include"../../lib/header/math/math.h"
 
 namespace nTsaiAlgorithm
@@ -8,9 +8,9 @@ namespace nTsaiAlgorithm
 	void CPath<T>::create_(const std::size_t rowBegin,const std::size_t rowEnd,const std::size_t column,const T val)
 	{
 		if(column==vec_.front().size()-1)
-			return ;
-		std::for_each(vec_.begin()+rowBegin,vec_.begin()+rowEnd,[=](value_type &vec){vec[column]=val;});
-		const auto range{nMath::factorial(nMath::diff_bit_count(val,vec_.front().back())-1)};
+			return;
+		nAlgorithm::for_each(rowBegin,rowEnd,[&,column,val](const auto i){vec_[i][column]=val;});
+		const auto range{(rowEnd-rowBegin)/(diff_bit_count()-column)};
 		T path{vec_.front().back()^val},mask{1};
 		for(auto i{rowBegin};i!=rowEnd;i+=range,mask<<=1)
 		{
