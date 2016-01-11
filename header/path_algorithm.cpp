@@ -33,46 +33,46 @@ namespace nTsaiAlgorithm
 			switch(i)
 			{
 			case 0:
-				temp.attach(createGate(size,begin[0],begin[1]));
-				temp.attach(createGate(size,begin[2],begin[3]));
-				temp.attach(createGate(size,begin[1],begin[2]));
-				temp.attach(createGate(size,begin[0],begin[1]));
-				temp.attach(createGate(size,begin[2],begin[3]));
+				temp.attach(createGate(size,begin[0],begin[1]));	//b a c d
+				temp.attach(createGate(size,begin[2],begin[3]));	//b a d c
+				temp.attach(createGate(size,begin[1],begin[2]));	//b d a c
+				temp.attach(createGate(size,begin[0],begin[1]));	//d b a c
+				temp.attach(createGate(size,begin[2],begin[3]));	//d b c a
 				break;
 			case 1:
-				temp.attach(createGate(size,begin[0],begin[1]));
-				temp.attach(createGate(size,begin[2],begin[3]));
-				temp.attach(createGate(size,begin[1],begin[2]));
-				temp.attach(createGate(size,begin[2],begin[3]));
-				temp.attach(createGate(size,begin[0],begin[1]));
+				temp.attach(createGate(size,begin[0],begin[1]));	//b a c d
+				temp.attach(createGate(size,begin[2],begin[3]));	//b a d c
+				temp.attach(createGate(size,begin[1],begin[2]));	//b d a c
+				temp.attach(createGate(size,begin[2],begin[3]));	//b d c a
+				temp.attach(createGate(size,begin[0],begin[1]));	//d b c a
 				break;
 			case 2:
-				temp.attach(createGate(size,begin[2],begin[3]));
-				temp.attach(createGate(size,begin[0],begin[1]));
-				temp.attach(createGate(size,begin[1],begin[2]));
-				temp.attach(createGate(size,begin[0],begin[1]));
-				temp.attach(createGate(size,begin[2],begin[3]));
+				temp.attach(createGate(size,begin[2],begin[3]));	//a b d c
+				temp.attach(createGate(size,begin[0],begin[1]));	//b a d c
+				temp.attach(createGate(size,begin[1],begin[2]));	//b d a c
+				temp.attach(createGate(size,begin[0],begin[1]));	//d b a c
+				temp.attach(createGate(size,begin[2],begin[3]));	//d b c a
 				break;
 			case 3:
-				temp.attach(createGate(size,begin[2],begin[3]));
-				temp.attach(createGate(size,begin[0],begin[1]));
-				temp.attach(createGate(size,begin[1],begin[2]));
-				temp.attach(createGate(size,begin[2],begin[3]));
-				temp.attach(createGate(size,begin[0],begin[1]));
+				temp.attach(createGate(size,begin[2],begin[3]));	//a b d c
+				temp.attach(createGate(size,begin[0],begin[1]));	//b a d c
+				temp.attach(createGate(size,begin[1],begin[2]));	//b d a c
+				temp.attach(createGate(size,begin[2],begin[3]));	//b d c a
+				temp.attach(createGate(size,begin[0],begin[1]));	//d b c a
 				break;
 			case 4:
-				temp.attach(createGate(size,begin[0],begin[1]));
-				temp.attach(createGate(size,begin[1],begin[2]));
-				temp.attach(createGate(size,begin[2],begin[3]));
-				temp.attach(createGate(size,begin[1],begin[2]));
-				temp.attach(createGate(size,begin[0],begin[1]));
+				temp.attach(createGate(size,begin[0],begin[1]));	//b a c d
+				temp.attach(createGate(size,begin[1],begin[2]));	//b c a d
+				temp.attach(createGate(size,begin[2],begin[3]));	//b c d a
+				temp.attach(createGate(size,begin[1],begin[2]));	//b d c a
+				temp.attach(createGate(size,begin[0],begin[1]));	//d b c a
 				break;
 			case 5:
-				temp.attach(createGate(size,begin[2],begin[3]));
-				temp.attach(createGate(size,begin[1],begin[2]));
-				temp.attach(createGate(size,begin[0],begin[1]));
-				temp.attach(createGate(size,begin[1],begin[2]));
-				temp.attach(createGate(size,begin[2],begin[3]));
+				temp.attach(createGate(size,begin[2],begin[3]));	//a b d c
+				temp.attach(createGate(size,begin[1],begin[2]));	//a d b c
+				temp.attach(createGate(size,begin[0],begin[1]));	//d a b c
+				temp.attach(createGate(size,begin[1],begin[2]));	//d b a c
+				temp.attach(createGate(size,begin[2],begin[3]));	//d b c a
 				break;
 			}
 			break;
