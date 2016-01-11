@@ -164,9 +164,9 @@ namespace
 		return count;
 	}
 	
-	size_t route(const size_t size)
+	size_t route(const size_t bit)
 	{
-		switch(size)
+		switch(bit)
 		{
 		case 1:			return 1;	//1 bit has 1 routes to exchange
 		case 2:			return 2;	//2 bit has 2 routes to exchange
