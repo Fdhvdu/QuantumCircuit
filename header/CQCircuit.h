@@ -45,6 +45,8 @@ namespace nQCircuit
 		void attach(CQGate &&);
 		void erase(std::size_t);
 		std::size_t gate_size() const noexcept;
+		void reserve(std::size_t);
+		void shrink_to_fit();
 		std::size_t size() const noexcept;
 		CQCircuit& operator=(const CQCircuit &);
 		CQCircuit& operator=(CQCircuit &&);	//check_size in CCQCircuit.cpp make it not noexcept

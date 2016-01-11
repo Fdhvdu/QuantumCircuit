@@ -171,6 +171,16 @@ namespace nQCircuit
 		return impl_.get().gateSize;
 	}
 
+	void CQCircuit::reserve(const size_t new_cap)
+	{
+		impl_.get().circuit.reserve(nex_cap);
+	}
+
+	void CQCircuit::shrink_to_fit()
+	{
+		impl_.get().circuit.shrink_to_fit();
+	}
+
 	size_t CQCircuit::size() const noexcept
 	{
 		return impl_.get().circuit.size();
