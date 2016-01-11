@@ -13,8 +13,8 @@
 #include"../../lib/header/tool/Boolean.h"
 #include"../header/TsaiAlgorithmFwd.h"
 #include"../header/CData.h"	//step4_algorithm
-#include"../header/CPath.h"
 #include"../header/CRoute.h"
+#include"../header/path_and_route.h"
 using namespace nQCircuit;
 using namespace nTsaiAlgorithm;
 using namespace std;
@@ -102,14 +102,15 @@ namespace
 		{
 			const PoolKey_t key{cycle[i],cycle[i-1]};
 			pool.try_emplace_func(key,[&,bit,i]{
-				const CPath<Func_t::value_type> path{cycle[i],cycle[i-1]};
+				const vector<vector<Cycle_t::value_type::value_type>> path{nHypercube::create_path(cycle[i],cycle[i-1])};
 				vec_CQCircuit temp;
-				for_each(path.begin(),path.end(),[&,bit](const CPath<Func_t::value_type>::value_type &val){
+				for(const vector<Cycle_t::value_type::value_type> &val:path)
+				{
 					CRoute route{bit,val.begin(),val.end()};
 					for_each(route.begin(),route.end(),[&](CRoute::value_type &val){
 						temp.emplace_back(move(val));
 					});
-				});
+				}
 				return temp;
 			});
 			vec.emplace_back(&pool.at(key));
@@ -121,7 +122,7 @@ namespace
 		uniform_int_distribution<size_t> dist;
 		for(size_t i{cycle.size()-1};i;--i)
 		{
-			const CPath<Func_t::value_type> path{cycle[i],cycle[i-1]};
+			const vector<vector<Cycle_t::value_type::value_type>> path{nHypercube::create_path(cycle[i],cycle[i-1])};
 			dist.param(uniform_int_distribution<size_t>::param_type(0,path.size()-1));
 			const auto choice_path{dist(mt)};
 			CRoute route{bit,path[choice_path].begin(),path[choice_path].end()};
