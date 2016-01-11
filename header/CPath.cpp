@@ -22,11 +22,11 @@ namespace nTsaiAlgorithm
 
 	template<class T>
 	CPath<T>::CPath(const T begin,const T end)
+		:diff_bit_count_{nMath::diff_bit_count(begin,end)}
 	{
-		const auto temp{nMath::diff_bit_count(begin,end)};
-		vec_.assign(nMath::factorial(temp),value_type(temp+1));
+		vec_.assign(nMath::factorial(diff_bit_count()),value_type(diff_bit_count()+1));
 		for(auto &val:vec_)
 			val.back()=end;
-		create_(0,vec_.size(),0,begin);
+		create_(0,size(),0,begin);
 	}
 }

@@ -11,10 +11,15 @@ namespace nTsaiAlgorithm
 	public:
 		typedef std::vector<T> value_type;
 	private:
+		const std::size_t diff_bit_count_;
 		std::vector<value_type> vec_;
 		void create_(std::size_t,std::size_t,std::size_t,T);
 	public:
 		CPath(T,T);
+		inline std::size_t diff_bit_count() const noexcept
+		{
+			return diff_bit_count_;
+		}
 		inline std::size_t size() const noexcept
 		{
 			return vec_.size();
