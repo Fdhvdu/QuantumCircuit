@@ -105,7 +105,7 @@ namespace
 			const PoolKey_t key{cycle[i],cycle[i-1]};
 			pool.try_emplace_func(key,[&,bit,i]{
 				const CPath<Func_t::value_type> path{cycle[i],cycle[i-1]};
-				const auto routeCount{route(path.size())};
+				const auto routeCount{route(path.diff_bit_count())};
 				vec_CQCircuit temp{path.size()*routeCount,vec_CQCircuit::value_type{bit}};
 				nAlgorithm::for_each<size_t>(0,path.size(),[&,bit,routeCount](const auto j){
 					nAlgorithm::for_each<size_t>(0,routeCount,[&,bit,routeCount,j](const auto k){
@@ -123,7 +123,7 @@ namespace
 		for(size_t i{cycle.size()-1};i;--i)
 		{
 			const CPath<Func_t::value_type> path{cycle[i],cycle[i-1]};
-			const auto choice{uniform_int_distribution<size_t>{0,path.size()*route(path.size())-1}(mt)};
+			const auto choice{uniform_int_distribution<size_t>{0,path.size()*route(path.diff_bit_count())-1}(mt)};
 			vec.emplace_back(new vec_CQCircuit{1,path_algorithm(path[choice/path.size()].begin(),path[choice/path.size()].end(),bit,choice%path.size())});
 		}
 	}
@@ -168,10 +168,10 @@ namespace
 	{
 		switch(size)
 		{
-		case 1:			return 1;
-		case 2:			return 2;
-		case 6:			return 6;
-		case 24:		return 20;
+		case 1:			return 1;	//1 bit has 1 routes to exchange
+		case 2:			return 2;	//2 bit has 2 routes to exchange
+		case 3:			return 6;	//3 bit has 6 routes to exchange
+		case 4:			return 20;	//4 bit has 20 routes to exchange
 		default:		throw logic_error{"Cannot find route"};
 		}
 	}
