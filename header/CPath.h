@@ -34,9 +34,17 @@ namespace nTsaiAlgorithm
 		//	{7,6,2,0},
 		//	{7,6,4,0}
 		//}
+		typename std::vector<value_type>::const_iterator begin() const noexcept
+		{
+			return vec_.begin();
+		}
 		inline std::size_t diff_bit_count() const noexcept
 		{
 			return diff_bit_count_;
+		}
+		typename std::vector<value_type>::const_iterator end() const noexcept
+		{
+			return vec_.end();
 		}
 		inline std::size_t size() const noexcept
 		{
