@@ -16,6 +16,7 @@ namespace nTsaiAlgorithm
 			temp.attach(createGate(size,begin[0],begin[1]));
 			break;
 		case 3:
+			temp.reserve(3);
 			if(i)
 			{
 				temp.attach(createGate(size,begin[0],begin[1]));
@@ -30,6 +31,7 @@ namespace nTsaiAlgorithm
 			}
 			break;
 		case 4:
+			temp.reserve(5);
 			switch(i)
 			{
 			case 0:
@@ -77,6 +79,7 @@ namespace nTsaiAlgorithm
 			}
 			break;
 		case 5:
+			temp.reserve(7);
 			switch(i)
 			{
 			case 0:
