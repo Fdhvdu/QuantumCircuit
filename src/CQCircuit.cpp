@@ -173,7 +173,7 @@ namespace nQCircuit
 
 	void CQCircuit::reserve(const size_t new_cap)
 	{
-		impl_.get().circuit.reserve(nex_cap);
+		impl_.get().circuit.reserve(new_cap);
 	}
 
 	void CQCircuit::shrink_to_fit()
