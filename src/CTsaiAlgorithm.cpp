@@ -3,9 +3,8 @@
 #include<chrono>	//for random
 #include<cstddef>	//size_t
 #include<functional>	//equal_to, hash
-#include<iterator>	//make_move_iterator
+#include<iterator>	//back_inserter, make_move_iterator
 #include<random>	//mt19937, uniform_int_distribution
-#include<stdexcept>	//logic_error
 #include<utility>	//move, pair
 #include<vector>
 #include"../../lib/header/algorithm/algorithm.h"	//for_each, unique_without_sort
@@ -15,7 +14,7 @@
 #include"../header/TsaiAlgorithmFwd.h"
 #include"../header/CData.h"	//step4_algorithm
 #include"../header/CPath.h"
-#include"../header/path_algorithm.h"	//path_algorithm
+#include"../header/CRoute.h"
 using namespace nQCircuit;
 using namespace nTsaiAlgorithm;
 using namespace std;
@@ -39,7 +38,6 @@ namespace
 	{
 		return nMath::factorial(split.size());
 	}
-	size_t route(size_t size);	//when your bit is higher than 4, you have to modify this
 	Cycle_t step1_create_cycle(const Func_t &);
 	vec_CQCircuit step2_rotate_cycle(Cycle_t &,size_t);
 	vec_CQCircuit step2_rotate_cycle_random(mt19937 &,Cycle_t &,size_t);
@@ -105,11 +103,11 @@ namespace
 			const PoolKey_t key{cycle[i],cycle[i-1]};
 			pool.try_emplace_func(key,[&,bit,i]{
 				const CPath<Func_t::value_type> path{cycle[i],cycle[i-1]};
-				const auto routeCount{route(path.diff_bit_count())};
-				vec_CQCircuit temp{path.size()*routeCount,vec_CQCircuit::value_type{bit}};
-				nAlgorithm::for_each<size_t>(0,path.size(),[&,bit,routeCount](const auto j){
-					nAlgorithm::for_each<size_t>(0,routeCount,[&,bit,routeCount,j](const auto k){
-						temp[j*routeCount+k]=path_algorithm(path[j].begin(),path[j].end(),bit,k);
+				vec_CQCircuit temp;
+				for_each(path.begin(),path.end(),[&,bit](const CPath<Func_t::value_type>::value_type &val){
+					CRoute route{bit,val.begin(),val.end()};
+					for_each(route.begin(),route.end(),[&](CRoute::value_type &val){
+						temp.emplace_back(move(val));
 					});
 				});
 				return temp;
@@ -120,11 +118,17 @@ namespace
 
 	void find_path_impl_random(mt19937 &mt,const Cycle_t::value_type &cycle,vec_const_vec_CQCircuit_ptr &vec,const size_t bit)
 	{
+		uniform_int_distribution<size_t> dist;
 		for(size_t i{cycle.size()-1};i;--i)
 		{
 			const CPath<Func_t::value_type> path{cycle[i],cycle[i-1]};
-			const auto choice{uniform_int_distribution<size_t>{0,path.size()*route(path.diff_bit_count())-1}(mt)};
-			vec.emplace_back(new vec_CQCircuit{1,path_algorithm(path[choice/path.size()].begin(),path[choice/path.size()].end(),bit,choice%path.size())});
+			dist.param(uniform_int_distribution<size_t>::param_type(0,path.size()-1));
+			const auto choice_path{dist(mt)};
+			CRoute route{bit,path[choice_path].begin(),path[choice_path].end()};
+			vec_CQCircuit *p{new vec_CQCircuit{}};
+			dist.param(uniform_int_distribution<size_t>::param_type(0,route.size()-1));
+			p->emplace_back(move(route[dist(mt)]));
+			vec.emplace_back(p);
 		}
 	}
 
@@ -162,18 +166,6 @@ namespace
 			if(2<val.size())
 				count*=val.size();
 		return count;
-	}
-	
-	size_t route(const size_t bit)
-	{
-		switch(bit)
-		{
-		case 1:			return 1;	//1 bit has 1 routes to exchange
-		case 2:			return 2;	//2 bit has 2 routes to exchange
-		case 3:			return 6;	//3 bit has 6 routes to exchange
-		case 4:			return 20;	//4 bit has 20 routes to exchange
-		default:		throw logic_error{"Cannot find route"};
-		}
 	}
 
 	Cycle_t step1_create_cycle(const Func_t &func)
