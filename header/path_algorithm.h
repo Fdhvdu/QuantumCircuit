@@ -14,6 +14,8 @@ namespace nTsaiAlgorithm
 
 	template<class RanIter>
 	nQCircuit::CQCircuit path_algorithm(RanIter,RanIter,size_t,size_t);	//when your bit is higher than 4, you have to modify this
+
+	std::size_t route(std::size_t);	//when your bit is higher than 4, you have to modify this
 }
 
 #include"path_algorithm.cpp"

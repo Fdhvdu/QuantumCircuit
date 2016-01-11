@@ -17,17 +17,18 @@ namespace nTsaiAlgorithm
 			break;
 		case 3:
 			temp.reserve(3);
-			if(i)
+			switch(i)
 			{
+			case 0:
 				temp.attach(createGate(size,begin[0],begin[1]));
 				temp.attach(createGate(size,begin[1],begin[2]));
 				temp.attach(createGate(size,begin[0],begin[1]));
-			}
-			else
-			{
+				break;
+			case 1:
 				temp.attach(createGate(size,begin[1],begin[2]));
 				temp.attach(createGate(size,begin[0],begin[1]));
 				temp.attach(createGate(size,begin[1],begin[2]));
+				break;
 			}
 			break;
 		case 4:
@@ -35,46 +36,46 @@ namespace nTsaiAlgorithm
 			switch(i)
 			{
 			case 0:
-				temp.attach(createGate(size,begin[0],begin[1]));	//b a c d
-				temp.attach(createGate(size,begin[2],begin[3]));	//b a d c
-				temp.attach(createGate(size,begin[1],begin[2]));	//b d a c
-				temp.attach(createGate(size,begin[0],begin[1]));	//d b a c
-				temp.attach(createGate(size,begin[2],begin[3]));	//d b c a
+				temp.attach(createGate(size,begin[0],begin[1]));	//b_a c d
+				temp.attach(createGate(size,begin[1],begin[2]));	//b c_a d
+				temp.attach(createGate(size,begin[2],begin[3]));	//b c d_a
+				temp.attach(createGate(size,begin[1],begin[2]));	//b d_c a
+				temp.attach(createGate(size,begin[0],begin[1]));	//d_b c a
 				break;
 			case 1:
-				temp.attach(createGate(size,begin[0],begin[1]));	//b a c d
-				temp.attach(createGate(size,begin[2],begin[3]));	//b a d c
-				temp.attach(createGate(size,begin[1],begin[2]));	//b d a c
-				temp.attach(createGate(size,begin[2],begin[3]));	//b d c a
-				temp.attach(createGate(size,begin[0],begin[1]));	//d b c a
+				temp.attach(createGate(size,begin[0],begin[1]));	//b_a c d
+				temp.attach(createGate(size,begin[2],begin[3]));	//b a d_c
+				temp.attach(createGate(size,begin[1],begin[2]));	//b d_a c
+				temp.attach(createGate(size,begin[0],begin[1]));	//d_b a c
+				temp.attach(createGate(size,begin[2],begin[3]));	//d b c_a
 				break;
 			case 2:
-				temp.attach(createGate(size,begin[2],begin[3]));	//a b d c
-				temp.attach(createGate(size,begin[0],begin[1]));	//b a d c
-				temp.attach(createGate(size,begin[1],begin[2]));	//b d a c
-				temp.attach(createGate(size,begin[0],begin[1]));	//d b a c
-				temp.attach(createGate(size,begin[2],begin[3]));	//d b c a
+				temp.attach(createGate(size,begin[0],begin[1]));	//b_a c d
+				temp.attach(createGate(size,begin[2],begin[3]));	//b a d_c
+				temp.attach(createGate(size,begin[1],begin[2]));	//b d_a c
+				temp.attach(createGate(size,begin[2],begin[3]));	//b d c_a
+				temp.attach(createGate(size,begin[0],begin[1]));	//d_b c a
 				break;
 			case 3:
-				temp.attach(createGate(size,begin[2],begin[3]));	//a b d c
-				temp.attach(createGate(size,begin[0],begin[1]));	//b a d c
-				temp.attach(createGate(size,begin[1],begin[2]));	//b d a c
-				temp.attach(createGate(size,begin[2],begin[3]));	//b d c a
-				temp.attach(createGate(size,begin[0],begin[1]));	//d b c a
+				temp.attach(createGate(size,begin[2],begin[3]));	//a b d_c
+				temp.attach(createGate(size,begin[1],begin[2]));	//a d_b c
+				temp.attach(createGate(size,begin[0],begin[1]));	//d_a b c
+				temp.attach(createGate(size,begin[1],begin[2]));	//d b_a c
+				temp.attach(createGate(size,begin[2],begin[3]));	//d b c_a
 				break;
 			case 4:
-				temp.attach(createGate(size,begin[0],begin[1]));	//b a c d
-				temp.attach(createGate(size,begin[1],begin[2]));	//b c a d
-				temp.attach(createGate(size,begin[2],begin[3]));	//b c d a
-				temp.attach(createGate(size,begin[1],begin[2]));	//b d c a
-				temp.attach(createGate(size,begin[0],begin[1]));	//d b c a
+				temp.attach(createGate(size,begin[2],begin[3]));	//a b d_c
+				temp.attach(createGate(size,begin[0],begin[1]));	//b_a d c
+				temp.attach(createGate(size,begin[1],begin[2]));	//b d_a c
+				temp.attach(createGate(size,begin[2],begin[3]));	//b d c_a
+				temp.attach(createGate(size,begin[0],begin[1]));	//d_b c a
 				break;
 			case 5:
-				temp.attach(createGate(size,begin[2],begin[3]));	//a b d c
-				temp.attach(createGate(size,begin[1],begin[2]));	//a d b c
-				temp.attach(createGate(size,begin[0],begin[1]));	//d a b c
-				temp.attach(createGate(size,begin[1],begin[2]));	//d b a c
-				temp.attach(createGate(size,begin[2],begin[3]));	//d b c a
+				temp.attach(createGate(size,begin[2],begin[3]));	//a b d_c
+				temp.attach(createGate(size,begin[0],begin[1]));	//b_a d c
+				temp.attach(createGate(size,begin[1],begin[2]));	//b d_a c
+				temp.attach(createGate(size,begin[0],begin[1]));	//d_b a c
+				temp.attach(createGate(size,begin[2],begin[3]));	//d b c_a
 				break;
 			}
 			break;
@@ -83,184 +84,184 @@ namespace nTsaiAlgorithm
 			switch(i)
 			{
 			case 0:
-				temp.attach(createGate(size,begin[3],begin[4]));	//a b c e d
-				temp.attach(createGate(size,begin[2],begin[3]));	//a b e c d
-				temp.attach(createGate(size,begin[1],begin[2]));	//a e b c d
-				temp.attach(createGate(size,begin[0],begin[1]));	//e a b c d
-				temp.attach(createGate(size,begin[1],begin[2]));	//e b a c d
-				temp.attach(createGate(size,begin[2],begin[3]));	//e b c a d
-				temp.attach(createGate(size,begin[3],begin[4]));	//e b c d a
+				temp.attach(createGate(size,begin[0],begin[1]));	//b_a c d e
+				temp.attach(createGate(size,begin[1],begin[2]));	//b c_a d e
+				temp.attach(createGate(size,begin[2],begin[3]));	//b c d_a e
+				temp.attach(createGate(size,begin[3],begin[4]));	//b c d e_a
+				temp.attach(createGate(size,begin[2],begin[3]));	//b c e_d a
+				temp.attach(createGate(size,begin[1],begin[2]));	//b e_c d a
+				temp.attach(createGate(size,begin[0],begin[1]));	//e_b c d a
 				break;
 			case 1:
-				temp.attach(createGate(size,begin[3],begin[4]));	//a b c e d
-				temp.attach(createGate(size,begin[2],begin[3]));	//a b e c d
-				temp.attach(createGate(size,begin[0],begin[1]));	//b a e c d
-				temp.attach(createGate(size,begin[1],begin[2]));	//b e a c d
-				temp.attach(createGate(size,begin[0],begin[1]));	//e b a c d
-				temp.attach(createGate(size,begin[2],begin[3]));	//e b c a d
-				temp.attach(createGate(size,begin[3],begin[4]));	//e b c d a
+				temp.attach(createGate(size,begin[0],begin[1]));	//b_a c d e
+				temp.attach(createGate(size,begin[1],begin[2]));	//b c_a d e
+				temp.attach(createGate(size,begin[3],begin[4]));	//b c a e_d
+				temp.attach(createGate(size,begin[2],begin[3]));	//b c e_a d
+				temp.attach(createGate(size,begin[1],begin[2]));	//b e_c a d
+				temp.attach(createGate(size,begin[0],begin[1]));	//e_b c a d
+				temp.attach(createGate(size,begin[3],begin[4]));	//e b c d_a
 				break;
 			case 2:
-				temp.attach(createGate(size,begin[3],begin[4]));	//a b c e d
-				temp.attach(createGate(size,begin[2],begin[3]));	//a b e c d
-				temp.attach(createGate(size,begin[0],begin[1]));	//b a e c d
-				temp.attach(createGate(size,begin[1],begin[2]));	//b e a c d
-				temp.attach(createGate(size,begin[2],begin[3]));	//b e c a d
-				temp.attach(createGate(size,begin[0],begin[1]));	//e b c a d
-				temp.attach(createGate(size,begin[3],begin[4]));	//e b c d a
+				temp.attach(createGate(size,begin[0],begin[1]));	//b_a c d e
+				temp.attach(createGate(size,begin[1],begin[2]));	//b c_a d e
+				temp.attach(createGate(size,begin[3],begin[4]));	//b c a e_d
+				temp.attach(createGate(size,begin[2],begin[3]));	//b c e_a d
+				temp.attach(createGate(size,begin[1],begin[2]));	//b e_c a d
+				temp.attach(createGate(size,begin[3],begin[4]));	//b e c d_a
+				temp.attach(createGate(size,begin[0],begin[1]));	//e_b c d a
 				break;
 			case 3:
-				temp.attach(createGate(size,begin[3],begin[4]));	//a b c e d
-				temp.attach(createGate(size,begin[2],begin[3]));	//a b e c d
-				temp.attach(createGate(size,begin[0],begin[1]));	//b a e c d
-				temp.attach(createGate(size,begin[1],begin[2]));	//b e a c d
-				temp.attach(createGate(size,begin[2],begin[3]));	//b e c a d
-				temp.attach(createGate(size,begin[3],begin[4]));	//b e c d a
-				temp.attach(createGate(size,begin[0],begin[1]));	//e b c d a
+				temp.attach(createGate(size,begin[0],begin[1]));	//b_a c d e
+				temp.attach(createGate(size,begin[1],begin[2]));	//b c_a d e
+				temp.attach(createGate(size,begin[3],begin[4]));	//b c a e_d
+				temp.attach(createGate(size,begin[2],begin[3]));	//b c e_a d
+				temp.attach(createGate(size,begin[3],begin[4]));	//b c e d_a
+				temp.attach(createGate(size,begin[1],begin[2]));	//b e_c d a
+				temp.attach(createGate(size,begin[0],begin[1]));	//e_b c d a
 				break;
 			case 4:
-				temp.attach(createGate(size,begin[3],begin[4]));	//a b c e d
-				temp.attach(createGate(size,begin[0],begin[1]));	//b a c e d
-				temp.attach(createGate(size,begin[2],begin[3]));	//b a e c d
-				temp.attach(createGate(size,begin[1],begin[2]));	//b e a c d
-				temp.attach(createGate(size,begin[0],begin[1]));	//e b a c d
-				temp.attach(createGate(size,begin[2],begin[3]));	//e b c a d
-				temp.attach(createGate(size,begin[3],begin[4]));	//e b c d a
+				temp.attach(createGate(size,begin[0],begin[1]));	//b_a c d e
+				temp.attach(createGate(size,begin[3],begin[4]));	//b a c e_d
+				temp.attach(createGate(size,begin[2],begin[3]));	//b a e_c d
+				temp.attach(createGate(size,begin[1],begin[2]));	//b e_a c d
+				temp.attach(createGate(size,begin[0],begin[1]));	//e_b a c d
+				temp.attach(createGate(size,begin[2],begin[3]));	//e b c_a d
+				temp.attach(createGate(size,begin[3],begin[4]));	//e b c d_a
 				break;
 			case 5:
-				temp.attach(createGate(size,begin[3],begin[4]));	//a b c e d
-				temp.attach(createGate(size,begin[0],begin[1]));	//b a c e d
-				temp.attach(createGate(size,begin[2],begin[3]));	//b a e c d
-				temp.attach(createGate(size,begin[1],begin[2]));	//b e a c d
-				temp.attach(createGate(size,begin[2],begin[3]));	//b e c a d
-				temp.attach(createGate(size,begin[0],begin[1]));	//e b c a d
-				temp.attach(createGate(size,begin[3],begin[4]));	//e b c d a
+				temp.attach(createGate(size,begin[0],begin[1]));	//b_a c d e
+				temp.attach(createGate(size,begin[3],begin[4]));	//b a c e_d
+				temp.attach(createGate(size,begin[1],begin[2]));	//b c_a e d
+				temp.attach(createGate(size,begin[2],begin[3]));	//b c e_a d
+				temp.attach(createGate(size,begin[1],begin[2]));	//b e_c a d
+				temp.attach(createGate(size,begin[0],begin[1]));	//e_b c a d
+				temp.attach(createGate(size,begin[3],begin[4]));	//e b c d_a
 				break;
 			case 6:
-				temp.attach(createGate(size,begin[3],begin[4]));	//a b c e d
-				temp.attach(createGate(size,begin[0],begin[1]));	//b a c e d
-				temp.attach(createGate(size,begin[2],begin[3]));	//b a e c d
-				temp.attach(createGate(size,begin[1],begin[2]));	//b e a c d
-				temp.attach(createGate(size,begin[2],begin[3]));	//b e c a d
-				temp.attach(createGate(size,begin[3],begin[4]));	//b e c d a
-				temp.attach(createGate(size,begin[0],begin[1]));	//e b c d a
+				temp.attach(createGate(size,begin[0],begin[1]));	//b_a c d e
+				temp.attach(createGate(size,begin[3],begin[4]));	//b a c e_d
+				temp.attach(createGate(size,begin[1],begin[2]));	//b c_a e d
+				temp.attach(createGate(size,begin[2],begin[3]));	//b c e_a d
+				temp.attach(createGate(size,begin[1],begin[2]));	//b e_c a d
+				temp.attach(createGate(size,begin[3],begin[4]));	//b e c d_a
+				temp.attach(createGate(size,begin[0],begin[1]));	//e_b c d a
 				break;
 			case 7:
-				temp.attach(createGate(size,begin[3],begin[4]));	//a b c e d
-				temp.attach(createGate(size,begin[0],begin[1]));	//b a c e d
-				temp.attach(createGate(size,begin[1],begin[2]));	//b c a e d
-				temp.attach(createGate(size,begin[2],begin[3]));	//b c e a d
-				temp.attach(createGate(size,begin[1],begin[2]));	//b e c a d
-				temp.attach(createGate(size,begin[0],begin[1]));	//e b c a d
-				temp.attach(createGate(size,begin[3],begin[4]));	//e b c d a
+				temp.attach(createGate(size,begin[0],begin[1]));	//b_a c d e
+				temp.attach(createGate(size,begin[3],begin[4]));	//b a c e_d
+				temp.attach(createGate(size,begin[1],begin[2]));	//b c_a e d
+				temp.attach(createGate(size,begin[2],begin[3]));	//b c e_a d
+				temp.attach(createGate(size,begin[3],begin[4]));	//b c e d_a
+				temp.attach(createGate(size,begin[1],begin[2]));	//b e_c d a
+				temp.attach(createGate(size,begin[0],begin[1]));	//e_b c d a
 				break;
 			case 8:
-				temp.attach(createGate(size,begin[3],begin[4]));	//a b c e d
-				temp.attach(createGate(size,begin[0],begin[1]));	//b a c e d
-				temp.attach(createGate(size,begin[1],begin[2]));	//b c a e d
-				temp.attach(createGate(size,begin[2],begin[3]));	//b c e a d
-				temp.attach(createGate(size,begin[1],begin[2]));	//b e c a d
-				temp.attach(createGate(size,begin[3],begin[4]));	//b e c d a
-				temp.attach(createGate(size,begin[0],begin[1]));	//e b c d a
+				temp.attach(createGate(size,begin[0],begin[1]));	//b_a c d e
+				temp.attach(createGate(size,begin[3],begin[4]));	//b a c e_d
+				temp.attach(createGate(size,begin[2],begin[3]));	//b a e_c d
+				temp.attach(createGate(size,begin[1],begin[2]));	//b e_a c d
+				temp.attach(createGate(size,begin[2],begin[3]));	//b e c_a d
+				temp.attach(createGate(size,begin[0],begin[1]));	//e_b c a d
+				temp.attach(createGate(size,begin[3],begin[4]));	//e b c d_a
 				break;
 			case 9:
-				temp.attach(createGate(size,begin[3],begin[4]));	//a b c e d
-				temp.attach(createGate(size,begin[0],begin[1]));	//b a c e d
-				temp.attach(createGate(size,begin[1],begin[2]));	//b c a e d
-				temp.attach(createGate(size,begin[2],begin[3]));	//b c e a d
-				temp.attach(createGate(size,begin[3],begin[4]));	//b c e d a
-				temp.attach(createGate(size,begin[2],begin[3]));	//b e c d a
-				temp.attach(createGate(size,begin[0],begin[1]));	//e b c d a
+				temp.attach(createGate(size,begin[0],begin[1]));	//b_a c d e
+				temp.attach(createGate(size,begin[3],begin[4]));	//b a c e_d
+				temp.attach(createGate(size,begin[2],begin[3]));	//b a e_c d
+				temp.attach(createGate(size,begin[1],begin[2]));	//b e_a c d
+				temp.attach(createGate(size,begin[2],begin[3]));	//b e c_a d
+				temp.attach(createGate(size,begin[3],begin[4]));	//b e c d_a
+				temp.attach(createGate(size,begin[0],begin[1]));	//e_b c d a
 				break;
 			case 10:
-				temp.attach(createGate(size,begin[0],begin[1]));	//b a c d e
-				temp.attach(createGate(size,begin[3],begin[4]));	//b a c e d
-				temp.attach(createGate(size,begin[2],begin[3]));	//b a e c d
-				temp.attach(createGate(size,begin[1],begin[2]));	//b e a c d
-				temp.attach(createGate(size,begin[0],begin[1]));	//e b a c d
-				temp.attach(createGate(size,begin[2],begin[3]));	//e b c a d
-				temp.attach(createGate(size,begin[3],begin[4]));	//e b c d a
+				temp.attach(createGate(size,begin[3],begin[4]));	//a b c e_d
+				temp.attach(createGate(size,begin[2],begin[3]));	//a b e_c d
+				temp.attach(createGate(size,begin[1],begin[2]));	//a e_b c d
+				temp.attach(createGate(size,begin[0],begin[1]));	//e_a b c d
+				temp.attach(createGate(size,begin[1],begin[2]));	//e b_a c d
+				temp.attach(createGate(size,begin[2],begin[3]));	//e b c_a d
+				temp.attach(createGate(size,begin[3],begin[4]));	//e b c d_a
 				break;
 			case 11:
-				temp.attach(createGate(size,begin[0],begin[1]));	//b a c d e
-				temp.attach(createGate(size,begin[3],begin[4]));	//b a c e d
-				temp.attach(createGate(size,begin[2],begin[3]));	//b a e c d
-				temp.attach(createGate(size,begin[1],begin[2]));	//b e a c d
-				temp.attach(createGate(size,begin[2],begin[3]));	//b e c a d
-				temp.attach(createGate(size,begin[0],begin[1]));	//e b c a d
-				temp.attach(createGate(size,begin[3],begin[4]));	//e b c d a
+				temp.attach(createGate(size,begin[3],begin[4]));	//a b c e_d
+				temp.attach(createGate(size,begin[2],begin[3]));	//a b e_c d
+				temp.attach(createGate(size,begin[0],begin[1]));	//b_a e c d
+				temp.attach(createGate(size,begin[1],begin[2]));	//b e_a c d
+				temp.attach(createGate(size,begin[2],begin[3]));	//b e c_a d
+				temp.attach(createGate(size,begin[3],begin[4]));	//b e c d_a
+				temp.attach(createGate(size,begin[0],begin[1]));	//e_b c d a
 				break;
 			case 12:
-				temp.attach(createGate(size,begin[0],begin[1]));	//b a c d e
-				temp.attach(createGate(size,begin[3],begin[4]));	//b a c e d
-				temp.attach(createGate(size,begin[2],begin[3]));	//b a e c d
-				temp.attach(createGate(size,begin[1],begin[2]));	//b e a c d
-				temp.attach(createGate(size,begin[2],begin[3]));	//b e c a d
-				temp.attach(createGate(size,begin[3],begin[4]));	//b e c d a
-				temp.attach(createGate(size,begin[0],begin[1]));	//e b c d a
+				temp.attach(createGate(size,begin[3],begin[4]));	//a b c e_d
+				temp.attach(createGate(size,begin[2],begin[3]));	//a b e_c d
+				temp.attach(createGate(size,begin[0],begin[1]));	//b_a e c d
+				temp.attach(createGate(size,begin[1],begin[2]));	//b e_a c d
+				temp.attach(createGate(size,begin[2],begin[3]));	//b e c_a d
+				temp.attach(createGate(size,begin[0],begin[1]));	//e_b c a d
+				temp.attach(createGate(size,begin[3],begin[4]));	//e b c d_a
 				break;
 			case 13:
-				temp.attach(createGate(size,begin[0],begin[1]));	//b a c d e
-				temp.attach(createGate(size,begin[3],begin[4]));	//b a c e d
-				temp.attach(createGate(size,begin[1],begin[2]));	//b c a e d
-				temp.attach(createGate(size,begin[2],begin[3]));	//b c e a d
-				temp.attach(createGate(size,begin[1],begin[2]));	//b e c a d
-				temp.attach(createGate(size,begin[0],begin[1]));	//e b c a d
-				temp.attach(createGate(size,begin[3],begin[4]));	//e b c d a
+				temp.attach(createGate(size,begin[3],begin[4]));	//a b c e_d
+				temp.attach(createGate(size,begin[2],begin[3]));	//a b e_c d
+				temp.attach(createGate(size,begin[0],begin[1]));	//b_a e c d
+				temp.attach(createGate(size,begin[1],begin[2]));	//b e_a c d
+				temp.attach(createGate(size,begin[0],begin[1]));	//e_b a c d
+				temp.attach(createGate(size,begin[2],begin[3]));	//e b c_a d
+				temp.attach(createGate(size,begin[3],begin[4]));	//e b c d_a
 				break;
 			case 14:
-				temp.attach(createGate(size,begin[0],begin[1]));	//b a c d e
-				temp.attach(createGate(size,begin[3],begin[4]));	//b a c e d
-				temp.attach(createGate(size,begin[1],begin[2]));	//b c a e d
-				temp.attach(createGate(size,begin[2],begin[3]));	//b c e a d
-				temp.attach(createGate(size,begin[1],begin[2]));	//b e c a d
-				temp.attach(createGate(size,begin[3],begin[4]));	//b e c d a
-				temp.attach(createGate(size,begin[0],begin[1]));	//e b c d a
+				temp.attach(createGate(size,begin[3],begin[4]));	//a b c e_d
+				temp.attach(createGate(size,begin[0],begin[1]));	//b_a c e d
+				temp.attach(createGate(size,begin[1],begin[2]));	//b c_a e d
+				temp.attach(createGate(size,begin[2],begin[3]));	//b c e_a d
+				temp.attach(createGate(size,begin[3],begin[4]));	//b c e d_a
+				temp.attach(createGate(size,begin[2],begin[3]));	//b e_c d a
+				temp.attach(createGate(size,begin[0],begin[1]));	//e_b c d a
 				break;
 			case 15:
-				temp.attach(createGate(size,begin[0],begin[1]));	//b a c d e
-				temp.attach(createGate(size,begin[3],begin[4]));	//b a c e d
-				temp.attach(createGate(size,begin[1],begin[2]));	//b c a e d
-				temp.attach(createGate(size,begin[2],begin[3]));	//b c e a d
-				temp.attach(createGate(size,begin[3],begin[4]));	//b c e d a
-				temp.attach(createGate(size,begin[1],begin[2]));	//b e c d a
-				temp.attach(createGate(size,begin[0],begin[1]));	//e b c d a
+				temp.attach(createGate(size,begin[3],begin[4]));	//a b c e_d
+				temp.attach(createGate(size,begin[0],begin[1]));	//b_a c e d
+				temp.attach(createGate(size,begin[2],begin[3]));	//b a e_c d
+				temp.attach(createGate(size,begin[1],begin[2]));	//b e_a c d
+				temp.attach(createGate(size,begin[2],begin[3]));	//b e c_a d
+				temp.attach(createGate(size,begin[3],begin[4]));	//b e c d_a
+				temp.attach(createGate(size,begin[0],begin[1]));	//e_b c d a
 				break;
 			case 16:
-				temp.attach(createGate(size,begin[0],begin[1]));	//b a c d e
-				temp.attach(createGate(size,begin[1],begin[2]));	//b c a d e
-				temp.attach(createGate(size,begin[3],begin[4]));	//b c a e d
-				temp.attach(createGate(size,begin[2],begin[3]));	//b c e a d
-				temp.attach(createGate(size,begin[1],begin[2]));	//b e c a d
-				temp.attach(createGate(size,begin[0],begin[1]));	//e b c a d
-				temp.attach(createGate(size,begin[3],begin[4]));	//e b c d a
+				temp.attach(createGate(size,begin[3],begin[4]));	//a b c e_d
+				temp.attach(createGate(size,begin[0],begin[1]));	//b_a c e d
+				temp.attach(createGate(size,begin[2],begin[3]));	//b a e_c d
+				temp.attach(createGate(size,begin[1],begin[2]));	//b e_a c d
+				temp.attach(createGate(size,begin[2],begin[3]));	//b e c_a d
+				temp.attach(createGate(size,begin[0],begin[1]));	//e_b c a d
+				temp.attach(createGate(size,begin[3],begin[4]));	//e b c d_a
 				break;
 			case 17:
-				temp.attach(createGate(size,begin[0],begin[1]));	//b a c d e
-				temp.attach(createGate(size,begin[1],begin[2]));	//b c a d e
-				temp.attach(createGate(size,begin[3],begin[4]));	//b c a e d
-				temp.attach(createGate(size,begin[2],begin[3]));	//b c e a d
-				temp.attach(createGate(size,begin[1],begin[2]));	//b e c a d
-				temp.attach(createGate(size,begin[3],begin[4]));	//b e c d a
-				temp.attach(createGate(size,begin[0],begin[1]));	//e b c d a
+				temp.attach(createGate(size,begin[3],begin[4]));	//a b c e_d
+				temp.attach(createGate(size,begin[0],begin[1]));	//b_a c e d
+				temp.attach(createGate(size,begin[2],begin[3]));	//b a e_c d
+				temp.attach(createGate(size,begin[1],begin[2]));	//b e_a c d
+				temp.attach(createGate(size,begin[0],begin[1]));	//e_b a c d
+				temp.attach(createGate(size,begin[2],begin[3]));	//e b c_a d
+				temp.attach(createGate(size,begin[3],begin[4]));	//e b c d_a
 				break;
 			case 18:
-				temp.attach(createGate(size,begin[0],begin[1]));	//b a c d e
-				temp.attach(createGate(size,begin[1],begin[2]));	//b c a d e
-				temp.attach(createGate(size,begin[3],begin[4]));	//b c a e d
-				temp.attach(createGate(size,begin[2],begin[3]));	//b c e a d
-				temp.attach(createGate(size,begin[3],begin[4]));	//b c e d a
-				temp.attach(createGate(size,begin[1],begin[2]));	//b e c d a
-				temp.attach(createGate(size,begin[0],begin[1]));	//e b c d a
+				temp.attach(createGate(size,begin[3],begin[4]));	//a b c e_d
+				temp.attach(createGate(size,begin[0],begin[1]));	//b_a c e d
+				temp.attach(createGate(size,begin[1],begin[2]));	//b c_a e d
+				temp.attach(createGate(size,begin[2],begin[3]));	//b c e_a d
+				temp.attach(createGate(size,begin[1],begin[2]));	//b e_c a d
+				temp.attach(createGate(size,begin[3],begin[4]));	//b e c d_a
+				temp.attach(createGate(size,begin[0],begin[1]));	//e_b c d a
 				break;
 			case 19:
-				temp.attach(createGate(size,begin[0],begin[1]));	//b a c d e
-				temp.attach(createGate(size,begin[1],begin[2]));	//b c a d e
-				temp.attach(createGate(size,begin[2],begin[3]));	//b c d a e
-				temp.attach(createGate(size,begin[3],begin[4]));	//b c d e a
-				temp.attach(createGate(size,begin[2],begin[3]));	//b c e d a
-				temp.attach(createGate(size,begin[1],begin[2]));	//b e c d a
-				temp.attach(createGate(size,begin[0],begin[1]));	//e b c d a
+				temp.attach(createGate(size,begin[3],begin[4]));	//a b c e_d
+				temp.attach(createGate(size,begin[0],begin[1]));	//b_a c e d
+				temp.attach(createGate(size,begin[1],begin[2]));	//b c_a e d
+				temp.attach(createGate(size,begin[2],begin[3]));	//b c e_a d
+				temp.attach(createGate(size,begin[1],begin[2]));	//b e_c a d
+				temp.attach(createGate(size,begin[0],begin[1]));	//e_b c a d
+				temp.attach(createGate(size,begin[3],begin[4]));	//e b c d_a
 				break;
 			}
 			break;
