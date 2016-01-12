@@ -125,7 +125,7 @@ namespace nQCircuit
 	CQCircuit::Impl::Impl(const size_t gateSize_)
 		:gateSize{gateSize_}{}
 
-	CQCircuit::Impl::Impl(size_t gateSize_,vector<CQGate> &&rVal)
+	CQCircuit::Impl::Impl(const size_t gateSize_,vector<CQGate> &&rVal)
 		:gateSize{gateSize_},circuit{move(rVal)}{}
 
 	CQCircuit::CQCircuit(const size_t gateSize)
