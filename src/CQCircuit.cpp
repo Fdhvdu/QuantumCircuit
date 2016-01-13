@@ -22,7 +22,7 @@ namespace nQCircuit
 	{
 		if(lhs.gate_size()!=rhs.gate_size())
 			return true;
-		return nAlgorithm::any_of<size_t>(0,lhs.gate_size(),[&](const auto val){return *lhs[val]!=*rhs[val];});
+		return nAlgorithm::any_of_val<size_t>(0,lhs.gate_size(),[&](const auto val){return *lhs[val]!=*rhs[val];});
 	}
 
 	struct CQGate::Impl
@@ -49,7 +49,7 @@ namespace nQCircuit
 
 	CQGate::Impl& CQGate::Impl::operator=(const Impl &impl)
 	{
-		nAlgorithm::for_each<size_t>(0,gateSize,[&](const auto val){
+		nAlgorithm::for_each_val<size_t>(0,gateSize,[&](const auto val){
 			gate[val]=copy_QBit(impl.gate[val]);
 		});
 		return *this;
@@ -99,7 +99,7 @@ namespace nQCircuit
 	{
 		if(lhs.gate_size()!=rhs.gate_size()||lhs.size()!=rhs.size())
 			return true;
-		return nAlgorithm::any_of<size_t>(0,lhs.size(),[&](const auto val){return lhs[val]!=rhs[val];});
+		return nAlgorithm::any_of_val<size_t>(0,lhs.size(),[&](const auto val){return lhs[val]!=rhs[val];});
 	}
 
 	struct CQCircuit::Impl

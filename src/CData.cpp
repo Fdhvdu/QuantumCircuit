@@ -139,15 +139,15 @@ namespace
 	{
 		const auto pathSize{get_split_size(path)};
 		vector<vector<Data_t>> vec(pathSize);	//not {}
-		nAlgorithm::for_each<size_t>(0,vec.size(),[&,pathSize](const auto i){
+		nAlgorithm::for_each_val<size_t>(0,vec.size(),[&,pathSize](const auto i){
 			vec[i].resize(pathSize-i);
 		});
-		nAlgorithm::for_each<size_t>(0,vec.front().size(),[&](const auto i){
+		nAlgorithm::for_each_val<size_t>(0,vec.front().size(),[&](const auto i){
 			vec.front()[i]=make_shared<Data_t::element_type>(step5_get_split_elem(path,i));
 		});
-		nAlgorithm::for_each<size_t>(1,vec.size(),[&](const auto i){
-			nAlgorithm::for_each<size_t>(0,vec[i].size(),[&,i](const auto j){
-				nAlgorithm::for_each<size_t>(0,i,[&,i,j](const auto k){
+		nAlgorithm::for_each_val<size_t>(1,vec.size(),[&](const auto i){
+			nAlgorithm::for_each_val<size_t>(0,vec[i].size(),[&,i](const auto j){
+				nAlgorithm::for_each_val<size_t>(0,i,[&,i,j](const auto k){
 					combine(vec[k][j],vec[i-k-1][j+k+1],i,vec[i][j]);
 				});
 			});

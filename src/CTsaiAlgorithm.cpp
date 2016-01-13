@@ -74,10 +74,10 @@ namespace
 	Split_with_index find_path(const Cycle_t &cycle,const size_t bit)
 	{
 		Split_with_index gate(cycle.size());	//not {}
-		nAlgorithm::for_each<size_t>(0,gate.size(),[&](const auto i){
+		nAlgorithm::for_each_val<size_t>(0,gate.size(),[&](const auto i){
 			gate[i].first=i;	//for next_permutation in step3_permutate_cycle
 		});
-		nAlgorithm::for_each<size_t>(0,gate.size(),[&,bit](const auto i){
+		nAlgorithm::for_each_val<size_t>(0,gate.size(),[&,bit](const auto i){
 			find_path_impl(cycle[i],gate[i].second,bit);
 		});
 		return gate;
@@ -86,10 +86,10 @@ namespace
 	Split_with_index find_path_random(mt19937 &mt,const Cycle_t &cycle,const size_t bit)
 	{
 		Split_with_index gate(cycle.size());	//not {}
-		nAlgorithm::for_each<size_t>(0,gate.size(),[&](const auto i){
+		nAlgorithm::for_each_val<size_t>(0,gate.size(),[&](const auto i){
 			gate[i].first=i;	//for next_permutation in step3_permutate_cycle
 		});
-		nAlgorithm::for_each<size_t>(0,gate.size(),[&,bit](const auto i){
+		nAlgorithm::for_each_val<size_t>(0,gate.size(),[&,bit](const auto i){
 			find_path_impl_random(mt,cycle[i],gate[i].second,bit);
 		});
 		return gate;
@@ -143,7 +143,7 @@ namespace
 
 	void make_split_with_index(Split_with_index &vec,Split_t &split)
 	{
-		nAlgorithm::for_each<size_t>(0,vec.size(),[&](const auto i){
+		nAlgorithm::for_each_val<size_t>(0,vec.size(),[&](const auto i){
 			vec[i].second=move(split[i]);
 		});
 	}
@@ -173,7 +173,7 @@ namespace
 	{
 		Cycle_t cycle;
 		vector<nTool::Boolean> ready(func.size());	//not {}
-		nAlgorithm::for_each<size_t>(0,ready.size(),[&](const auto i){
+		nAlgorithm::for_each_val<size_t>(0,ready.size(),[&](const auto i){
 			if(i!=func[i]&&!ready[i])	//i!=func[i], implicit conversion
 			{
 				cycle.emplace_back();	//push a empty object

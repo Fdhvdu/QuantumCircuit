@@ -21,8 +21,8 @@ namespace
 		//bit=110
 		vector<nTool::Boolean> bit(gate.gate_size());
 		nMath::reverse_bit(input,bit.rbegin(),bit.rend());
-		if(nAlgorithm::all_of<size_t>(0,gate.gate_size(),[&](const size_t subscript){return gate[subscript]->is_valid(gate,bit,subscript);}))
-			nAlgorithm::for_each<size_t>(0,gate.gate_size(),[&](const auto i){
+		if(nAlgorithm::all_of_val<size_t>(0,gate.gate_size(),[&](const size_t subscript){return gate[subscript]->is_valid(gate,bit,subscript);}))
+			nAlgorithm::for_each_val<size_t>(0,gate.gate_size(),[&](const auto i){
 				bit[i]=gate[i]->operate(bit[i]);
 			});
 		input=bit[0];
@@ -47,7 +47,7 @@ size_t calc_func_num(const Func_t &func)
 	//{0,1,2,3,4,5,7,6}=1
 	//{7,6,5,4,3,2,1,0}=40319
 	size_t num{0};
-	nAlgorithm::for_each<size_t>(0,func.size(),[&](const auto i){
+	nAlgorithm::for_each_val<size_t>(0,func.size(),[&](const auto i){
 		num+=count_if(func.begin()+i+1,func.end(),[&,i](const auto val){return val<func[i];})*nMath::factorial(func.size()-i-1);	//copy i
 	});
 	return num;
@@ -68,7 +68,7 @@ Func_t get_func_after_circuit(const Func_t &func,const nQCircuit::CQCircuit &cir
 
 Func_t get_func_after_circuit(Func_t &&rVal,const nQCircuit::CQCircuit &circuit)
 {
-	nAlgorithm::for_each<size_t>(0,circuit.size(),[&](const auto i){
+	nAlgorithm::for_each_val<size_t>(0,circuit.size(),[&](const auto i){
 		rVal=get_func_after_gate(move(rVal),circuit[i]);
 	});
 	return rVal;

@@ -12,7 +12,7 @@ namespace nTsaiAlgorithm
 	{
 		CQGate temp{size};
 		const bitset<sizeof(size_t)*8> gate{lhs^rhs},bitLhs{lhs};
-		nAlgorithm::for_each<size_t>(0,size,[&,size](const auto i){
+		nAlgorithm::for_each_val<size_t>(0,size,[&,size](const auto i){
 			if(gate[size-i-1])
 				temp[i]=make_Q_not_bit();
 			else

@@ -10,7 +10,7 @@ namespace
 	bool disjoint(const CQGate &lhs,const CQGate &rhs)
 	{
 		bool both{false};
-		return nAlgorithm::find_if<size_t>(0,lhs.gate_size(),[&](const auto i){
+		return nAlgorithm::find_if_val<size_t>(0,lhs.gate_size(),[&](const auto i){
 			return lhs[i]->info()==QBit::NOT&&rhs[i]->info()==QBit::NOT
 				||(lhs[i]->info()==QBit::CONTROLLED_NOT&&rhs[i]->info()==QBit::WHITE_CONTROLLED_NOT||lhs[i]->info()==QBit::WHITE_CONTROLLED_NOT&&rhs[i]->info()==QBit::CONTROLLED_NOT)
 				||((lhs[i]->info()==QBit::NOT&&rhs[i]->info()==QBit::EMPTY||lhs[i]->info()==QBit::EMPTY&&rhs[i]->info()==QBit::NOT)&&!(both=!both));
@@ -19,12 +19,12 @@ namespace
 
 	inline size_t diff_pos(const CQGate &lhs,const CQGate &rhs)
 	{
-		return nAlgorithm::find_if<size_t>(0,lhs.gate_size(),[&](const size_t subscript){return *lhs[subscript]!=*rhs[subscript];});
+		return nAlgorithm::find_if_val<size_t>(0,lhs.gate_size(),[&](const size_t subscript){return *lhs[subscript]!=*rhs[subscript];});
 	}
 
 	inline bool is_1_diff(const CQGate &lhs,const CQGate &rhs)
 	{
-		return nAlgorithm::count_if<size_t>(0,lhs.gate_size(),[&](const size_t subscript){return *lhs[subscript]!=*rhs[subscript];})==1;
+		return nAlgorithm::count_if_val<size_t>(0,lhs.gate_size(),[&](const size_t subscript){return *lhs[subscript]!=*rhs[subscript];})==1;
 	}
 }
 
@@ -37,7 +37,7 @@ namespace nQCircuit
 				for(size_t j{i+1};j!=val.size();++j)
 					if(val[i]==val[j])
 					{
-						if(nAlgorithm::all_of(i+1,j,[&,i](const size_t subscript){return disjoint(val[i],val[subscript]);}))
+						if(nAlgorithm::all_of_val(i+1,j,[&,i](const size_t subscript){return disjoint(val[i],val[subscript]);}))
 						{
 							val.erase(j);
 							val.erase(i);
