@@ -7,13 +7,16 @@
 #include<random>	//mt19937, uniform_int_distribution
 #include<utility>	//move, pair
 #include<vector>
-#include"../../lib/header/algorithm/algorithm.h"	//for_each, unique_without_sort
-#include"../../lib/header/math/math.h"	//Cantor_pairing_function
+#include"../../lib/header/algorithm/algorithm.h"	//for_each_val, unique_without_sort
+#include"../../lib/header/algorithm/exchange_endpoint_by_swapping.h"
+#include"../../lib/header/math/math.h"	//Cantor_pairing_function, factorial, log_2
 #include"../../lib/header/thread/CThread_unordered_map.h"
 #include"../../lib/header/tool/Boolean.h"
+#include"../../lib/header/tool/CInsert_iterator.h"
 #include"../header/TsaiAlgorithmFwd.h"
 #include"../header/CData.h"	//step4_algorithm
-#include"../header/CRoute.h"
+#include"../header/CQCircuit.h"
+#include"../header/path_algorithm.h"
 #include"../header/path_and_route.h"
 using namespace nQCircuit;
 using namespace nTsaiAlgorithm;
@@ -106,10 +109,13 @@ namespace
 				vec_CQCircuit temp;
 				for(const vector<Cycle_t::value_type::value_type> &val:path)
 				{
-					CRoute route{bit,val.begin(),val.end()};
-					for_each(route.begin(),route.end(),[&](CRoute::value_type &val){
-						temp.emplace_back(move(val));
-					});
+					vector<vector<CQGate>> vec{nAlgorithm::exchange_endpoint_by_swapping(begin(val),end(val),[bit](const auto lhs,const auto rhs){return createGate(bit,lhs,rhs);})};
+					for(auto &val:vec)
+					{
+						temp.emplace_back(bit);
+						temp.back().reserve(val.size());
+						move(begin(val),end(val),make_CQGate_inserter(temp.back()));
+					}
 				}
 				return temp;
 			});
@@ -125,10 +131,11 @@ namespace
 			const vector<vector<Cycle_t::value_type::value_type>> path{nHypercube::create_path(cycle[i],cycle[i-1])};
 			dist.param(uniform_int_distribution<size_t>::param_type(0,path.size()-1));
 			const auto choice_path{dist(mt)};
-			CRoute route{bit,path[choice_path].begin(),path[choice_path].end()};
-			vec_CQCircuit *p{new vec_CQCircuit{}};
+			vector<vector<CQGate>> route{nAlgorithm::exchange_endpoint_by_swapping(begin(path[choice_path]),end(path[choice_path]),[bit](const auto lhs,const auto rhs){return createGate(bit,lhs,rhs);})};
 			dist.param(uniform_int_distribution<size_t>::param_type(0,route.size()-1));
-			p->emplace_back(move(route[dist(mt)]));
+			const auto choice_route{dist(mt)};
+			vec_CQCircuit *p{new vec_CQCircuit{1,CQCircuit{bit}}};
+			move(begin(route[choice_route]),end(route[choice_route]),make_CQGate_inserter(p->back()));
 			vec.emplace_back(p);
 		}
 	}
