@@ -4,6 +4,7 @@
 #include<utility>	//move
 #include<vector>
 #include"../../lib/header/algorithm/algorithm.h"
+#include"../../lib/header/tool/CInsert_iterator.h"
 #include"../header/IQBit.h"
 using namespace std;
 
@@ -211,6 +212,16 @@ namespace nQCircuit
 	}
 
 	CQCircuit::~CQCircuit(){}
+
+	nTool::CInsert_iterator<CQGate,CQCircuit,void(CQCircuit::*)(const CQGate &),void(CQCircuit::*)(CQGate &&)> make_CQGate_inserter(CQCircuit &circuit)
+	{
+		return nTool::inserter<CQGate>(circuit,static_cast<void(CQCircuit::*)(const CQGate &)>(&CQCircuit::attach),static_cast<void(CQCircuit::*)(CQGate &&)>(&CQCircuit::attach));
+	}
+
+	nTool::CInsert_iterator<CQCircuit,CQCircuit,void(CQCircuit::*)(const CQCircuit &),void(CQCircuit::*)(CQCircuit &&)> make_CQCircuit_inserter(CQCircuit &circuit)
+	{
+		return nTool::inserter<CQCircuit>(circuit,static_cast<void(CQCircuit::*)(const CQCircuit &)>(&CQCircuit::attach),static_cast<void(CQCircuit::*)(CQCircuit &&)>(&CQCircuit::attach));
+	}
 
 	unique_ptr<const IQBit> copy_QBit(const unique_ptr<const IQBit> &bit)
 	{

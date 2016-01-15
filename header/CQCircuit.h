@@ -4,6 +4,12 @@
 #include<memory>
 #include"../../lib/header/tool/CPimpl.h"
 
+namespace nTool
+{
+	template<class T,class Hold,class RefFunc_t,class MoveFunc_t>
+	class CInsert_iterator;
+}
+
 namespace nQCircuit
 {
 	struct IQBit;
@@ -36,7 +42,7 @@ namespace nQCircuit
 		struct Impl;
 		nTool::CPimpl<Impl> impl_;
 	public:
-		explicit CQCircuit(std::size_t gateSize);
+		explicit CQCircuit(std::size_t);
 		CQCircuit(const CQCircuit &);
 		CQCircuit(CQCircuit &&) noexcept;
 		void attach(const CQCircuit &);
@@ -61,6 +67,10 @@ namespace nQCircuit
 	{
 		return !(lhs!=rhs);
 	}
+
+	nTool::CInsert_iterator<CQGate,CQCircuit,void(CQCircuit::*)(const CQGate &),void(CQCircuit::*)(CQGate &&)> make_CQGate_inserter(CQCircuit &);
+
+	nTool::CInsert_iterator<CQCircuit,CQCircuit,void(CQCircuit::*)(const CQCircuit &),void(CQCircuit::*)(CQCircuit &&)> make_CQCircuit_inserter(CQCircuit &);
 
 	std::unique_ptr<const IQBit> copy_QBit(const std::unique_ptr<const IQBit> &);
 	
