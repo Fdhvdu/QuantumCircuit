@@ -16,8 +16,8 @@
 #include"../header/TsaiAlgorithmFwd.h"
 #include"../header/CData.h"	//step4_algorithm
 #include"../header/CQCircuit.h"
-#include"../header/path_algorithm.h"
-#include"../header/path_and_route.h"
+#include"../header/path.h"
+#include"../header/synthesis.h"
 using namespace nQCircuit;
 using namespace nTsaiAlgorithm;
 using namespace std;
@@ -36,7 +36,14 @@ namespace
 	Split_t make_split(Split_with_index &);
 	void make_split_with_index(Split_with_index &,Split_t &);
 	bool next_permutation(Cycle_t &);
-	size_t next_permutation_count(const Cycle_t &);
+	inline size_t next_permutation_count(const Cycle_t &cycle)
+	{
+		return accumulate(begin(cycle),end(cycle),static_cast<size_t>(1),[](const auto init,const vector<Func_t::value_type> &vec){
+			if(2<vec.size())
+				return init*vec.size();
+			return init;
+		});
+	}
 	inline size_t next_permutation_count(const Split_with_index &split)
 	{
 		return nMath::factorial(split.size());
@@ -108,7 +115,7 @@ namespace
 				const vector<vector<Cycle_t::value_type::value_type>> path{nHypercube::create_path(cycle[i],cycle[i-1])};
 				vec_CQCircuit temp;
 				for(const vector<Cycle_t::value_type::value_type> &val:path)
-					for(vector<CQGate> &val2:nAlgorithm::exchange_endpoint_by_swapping(begin(val),end(val),[bit](const auto lhs,const auto rhs){return createGate(bit,lhs,rhs);}))
+					for(vector<CQGate> &val2:nAlgorithm::exchange_endpoint_by_swapping(begin(val),end(val),[bit](const auto lhs,const auto rhs){return nQCircuit::create_QGate(bit,lhs,rhs);}))
 						//notice, vector<CQGate> &&val2 is not valid here
 					{
 						temp.emplace_back(bit);
@@ -129,7 +136,7 @@ namespace
 			const vector<vector<Cycle_t::value_type::value_type>> path{nHypercube::create_path(cycle[i],cycle[i-1])};
 			dist.param(uniform_int_distribution<size_t>::param_type(0,path.size()-1));
 			const auto choice_path{dist(mt)};
-			vector<vector<CQGate>> route{nAlgorithm::exchange_endpoint_by_swapping(begin(path[choice_path]),end(path[choice_path]),[bit](const auto lhs,const auto rhs){return createGate(bit,lhs,rhs);})};
+			vector<vector<CQGate>> route{nAlgorithm::exchange_endpoint_by_swapping(begin(path[choice_path]),end(path[choice_path]),[bit](const auto lhs,const auto rhs){return nQCircuit::create_QGate(bit,lhs,rhs);})};
 			dist.param(uniform_int_distribution<size_t>::param_type(0,route.size()-1));
 			const auto choice_route{dist(mt)};
 			vec_CQCircuit *p{new vec_CQCircuit{1,CQCircuit{bit}}};
@@ -163,15 +170,6 @@ namespace
 					return true;
 			}
 		return false;
-	}
-
-	size_t next_permutation_count(const Cycle_t &cycle)
-	{
-		size_t count{1};
-		for(auto &val:cycle)
-			if(2<val.size())
-				count*=val.size();
-		return count;
 	}
 
 	Cycle_t step1_create_cycle(const Func_t &func)
