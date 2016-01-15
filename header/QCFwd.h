@@ -14,7 +14,6 @@ typedef std::vector<nQCircuit::CQCircuit> vec_CQCircuit;
 
 class ICircuitAlgorithm
 {
-protected:
 	Func_t func_;
 public:
 	virtual void create()=0;
