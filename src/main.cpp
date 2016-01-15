@@ -6,6 +6,8 @@
 #include<mutex>
 #include<thread>	//thread::hardware_concurrency()
 #endif
+#include<utility>	//declval
+#include<type_traits>	//remove_reference
 #include<vector>
 #include"../../lib/header/tool/CChrono_timer.h"
 #include"../../lib/header/tool/show.h"
@@ -18,7 +20,7 @@
 
 namespace
 {
-	std::vector<std::size_t> accu;
+	std::vector<std::remove_reference<decltype(std::declval<ICircuitAlgorithm>().get())>::type::size_type> accu;
 	std::ofstream ofs{"output.txt"};
 #if USE_THREAD
 	std::mutex accu_mut;
@@ -30,7 +32,7 @@ namespace
 		unique_ptr<ICircuitAlgorithm> algorithm{make_unique<nTsaiAlgorithm::CTsaiAlgorithm>()};
 		algorithm->setFunc(func);
 		algorithm->create();
-		size_t size{algorithm->get().size()};
+		auto size{algorithm->get().size()};
 		if(size)
 			size=algorithm->get().front().size();
 		{
