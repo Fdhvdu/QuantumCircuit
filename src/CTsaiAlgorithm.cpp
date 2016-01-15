@@ -3,7 +3,7 @@
 #include<chrono>	//for random
 #include<cstddef>	//size_t
 #include<functional>	//equal_to, hash
-#include<iterator>	//back_inserter, make_move_iterator
+#include<iterator>	//back_inserter, begin, end, make_move_iterator
 #include<random>	//mt19937, uniform_int_distribution
 #include<utility>	//move, pair
 #include<vector>
@@ -108,15 +108,13 @@ namespace
 				const vector<vector<Cycle_t::value_type::value_type>> path{nHypercube::create_path(cycle[i],cycle[i-1])};
 				vec_CQCircuit temp;
 				for(const vector<Cycle_t::value_type::value_type> &val:path)
-				{
-					vector<vector<CQGate>> vec{nAlgorithm::exchange_endpoint_by_swapping(begin(val),end(val),[bit](const auto lhs,const auto rhs){return createGate(bit,lhs,rhs);})};
-					for(auto &val:vec)
+					for(vector<CQGate> &val2:nAlgorithm::exchange_endpoint_by_swapping(begin(val),end(val),[bit](const auto lhs,const auto rhs){return createGate(bit,lhs,rhs);}))
+						//notice, vector<CQGate> &&val2 is not valid here
 					{
 						temp.emplace_back(bit);
-						temp.back().reserve(val.size());
-						move(begin(val),end(val),make_CQGate_inserter(temp.back()));
+						temp.back().reserve(val2.size());
+						move(begin(val2),end(val2),make_CQGate_inserter(temp.back()));
 					}
-				}
 				return temp;
 			});
 			vec.emplace_back(&pool.at(key));
@@ -144,7 +142,7 @@ namespace
 	{
 		Split_t split;
 		split.reserve(vec.size());
-		transform(make_move_iterator(vec.begin()),make_move_iterator(vec.end()),back_inserter(split),[](pair<size_t,vec_const_vec_CQCircuit_ptr> &&val){return val.second;});
+		transform(make_move_iterator(begin(vec)),make_move_iterator(end(vec)),back_inserter(split),[](pair<size_t,vec_const_vec_CQCircuit_ptr> &&val){return val.second;});
 		return split;
 	}
 
@@ -160,8 +158,8 @@ namespace
 		for(auto &val:cycle)
 			if(2<val.size())
 			{
-				rotate(val.begin(),next(val.begin()),val.end());
-				if(min_element(val.begin(),val.end())!=val.begin())
+				rotate(begin(val),next(begin(val)),end(val));
+				if(min_element(begin(val),end(val))!=begin(val))
 					return true;
 			}
 		return false;
@@ -226,7 +224,7 @@ namespace
 			auto split{make_split(split_with_index)};
 			move_insert(result,step4_algorithm(split));
 			make_split_with_index(split_with_index,split);
-		}while(next_permutation(split_with_index.begin(),split_with_index.end(),[](const pair<size_t,vec_const_vec_CQCircuit_ptr> &lhs,const pair<size_t,vec_const_vec_CQCircuit_ptr> &rhs){return lhs.first<rhs.first;}));
+		}while(next_permutation(begin(split_with_index),end(split_with_index),[](const pair<size_t,vec_const_vec_CQCircuit_ptr> &lhs,const pair<size_t,vec_const_vec_CQCircuit_ptr> &rhs){return lhs.first<rhs.first;}));
 		erase_equal(result);
 		sort_by_size(result);
 		if(result.size())
@@ -237,7 +235,7 @@ namespace
 	vec_CQCircuit step3_permutate_cycle_random(mt19937 &mt,Split_with_index &split_with_index)
 	{
 		for(auto choice{uniform_int_distribution<size_t>{0,next_permutation_count(split_with_index)-1}(mt)};choice--;)
-			next_permutation(split_with_index.begin(),split_with_index.end(),[](const pair<size_t,vec_const_vec_CQCircuit_ptr> &lhs,const pair<size_t,vec_const_vec_CQCircuit_ptr> &rhs){return lhs.first<rhs.first;});
+			next_permutation(begin(split_with_index),end(split_with_index),[](const pair<size_t,vec_const_vec_CQCircuit_ptr> &lhs,const pair<size_t,vec_const_vec_CQCircuit_ptr> &rhs){return lhs.first<rhs.first;});
 		return step4_algorithm(make_split(split_with_index));
 	}
 }
@@ -246,23 +244,23 @@ namespace nTsaiAlgorithm
 {
 	void sort_by_size(vec_CQCircuit &val)
 	{
-		sort(val.begin(),val.end(),[](const CQCircuit &lhs,const CQCircuit &rhs){return lhs.size()<rhs.size();});
+		sort(begin(val),end(val),[](const CQCircuit &lhs,const CQCircuit &rhs){return lhs.size()<rhs.size();});
 	}
 	
 	void erase_equal(vec_CQCircuit &val)
 	{
-		val.erase(nAlgorithm::unique_without_sort(val.begin(),val.end()),val.end());
+		val.erase(nAlgorithm::unique_without_sort(begin(val),end(val)),end(val));
 	}
 
 	void erase_size_bigger_than_smallest_size_plus_1(vec_CQCircuit &val)
 	{
 		const auto size{val.front().size()+1};
-		val.erase(find_if(val.begin(),val.end(),[=](const CQCircuit &circuit){return size<circuit.size();}),val.end());
+		val.erase(find_if(begin(val),end(val),[=](const CQCircuit &circuit){return size<circuit.size();}),end(val));
 	}
 	
 	void move_insert(vec_CQCircuit &result,vec_CQCircuit &&rVal)
 	{
-		result.insert(result.end(),make_move_iterator(rVal.begin()),make_move_iterator(rVal.end()));
+		result.insert(end(result),make_move_iterator(begin(rVal)),make_move_iterator(end(rVal)));
 	}
 
 	void CTsaiAlgorithm::create()
