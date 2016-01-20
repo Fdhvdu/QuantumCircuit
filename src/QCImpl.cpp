@@ -94,7 +94,7 @@ Func_t get_gate_func(const nQCircuit::CQGate &gate)
 	return get_func_after_gate(move(temp),gate);
 }
 
-Func_t reverse_func(const Func_t &func) noexcept
+Func_t reverse_func(const Func_t &func)
 {
 	Func_t temp{func};
 	for(const auto val:func)
