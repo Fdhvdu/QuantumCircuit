@@ -93,3 +93,11 @@ Func_t get_gate_func(const nQCircuit::CQGate &gate)
 	iota(temp.begin(),temp.end(),0);
 	return get_func_after_gate(move(temp),gate);
 }
+
+Func_t reverse_func(const Func_t &func) noexcept
+{
+	Func_t temp{func};
+	for(const auto val:func)
+		temp[func[val]]=val;
+	return temp;
+}
