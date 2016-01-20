@@ -36,7 +36,7 @@ namespace
 
 ICircuitAlgorithm::~ICircuitAlgorithm(){}
 
-size_t calc_func_num(const Func_t &func)
+size_t calc_func_num(const Func_t &func) noexcept
 {
 	//{0,1}=0
 	//{1,0}=1
@@ -48,14 +48,14 @@ size_t calc_func_num(const Func_t &func)
 	//{7,6,5,4,3,2,1,0}=40319
 	size_t num{0};
 	nAlgorithm::for_each_val<size_t>(0,func.size(),[&](const auto i){
-		num+=count_if(func.begin()+i+1,func.end(),[&,i](const auto val){return val<func[i];})*nMath::factorial(func.size()-i-1);	//copy i
+		num+=count_if(next(begin(func),i+1),end(func),[&,i](const auto val){return val<func[i];})*nMath::factorial(func.size()-i-1);
 	});
 	return num;
 }
 
 Func_t get_circuit_func(const nQCircuit::CQCircuit &circuit)
 {
-	Func_t temp(nMath::power_of_2(circuit.gate_size()));
+	Func_t temp(nMath::power_of_2(circuit.gate_size()));	//not {}
 	iota(temp.begin(),temp.end(),0);
 	return get_func_after_circuit(move(temp),circuit);
 }
@@ -89,7 +89,7 @@ Func_t get_func_after_gate(Func_t &&rVal,const nQCircuit::CQGate &gate)
 
 Func_t get_gate_func(const nQCircuit::CQGate &gate)
 {
-	Func_t temp(nMath::power_of_2(gate.gate_size()));
+	Func_t temp(nMath::power_of_2(gate.gate_size()));	//not {}
 	iota(temp.begin(),temp.end(),0);
 	return get_func_after_gate(move(temp),gate);
 }

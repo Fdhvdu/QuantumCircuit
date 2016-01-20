@@ -29,7 +29,7 @@ public:
 	virtual ~ICircuitAlgorithm();
 };
 
-std::size_t calc_func_num(const Func_t &);
+std::size_t calc_func_num(const Func_t &) noexcept;
 Func_t get_circuit_func(const nQCircuit::CQCircuit &);
 Func_t get_func_after_circuit(const Func_t &,const nQCircuit::CQCircuit &);
 Func_t get_func_after_circuit(Func_t &&,const nQCircuit::CQCircuit &);
