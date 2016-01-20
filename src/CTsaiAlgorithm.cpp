@@ -3,6 +3,7 @@
 #include<chrono>	//for random
 #include<cstddef>	//size_t
 #include<functional>	//equal_to, hash
+#include<numeric>	//accumulate
 #include<iterator>	//back_inserter, begin, end, make_move_iterator
 #include<random>	//mt19937, uniform_int_distribution
 #include<utility>	//move, pair
