@@ -1,8 +1,8 @@
 //requirements: x64 and C++14
-#define USE_THREAD 1
+#define USE_THREAD
 #include<fstream>
 #include<memory>	//make_unique
-#if USE_THREAD
+#ifdef USE_THREAD
 #include<mutex>
 #include<thread>	//thread::hardware_concurrency()
 #endif
@@ -11,7 +11,7 @@
 #include<vector>
 #include"../../lib/header/tool/CChrono_timer.hpp"
 #include"../../lib/header/tool/show.hpp"
-#if USE_THREAD
+#ifdef USE_THREAD
 #include"../../ThreadPool/header/CThreadPool.hpp"
 #endif
 #include"../header/CQCircuit.hpp"
@@ -22,7 +22,7 @@ namespace
 {
 	std::vector<std::remove_reference<decltype(std::declval<ICircuitAlgorithm>().get())>::type::size_type> accu;
 	std::ofstream ofs{"output.txt"};
-#if USE_THREAD
+#ifdef USE_THREAD
 	std::mutex accu_mut;
 	std::mutex ofs_mut;
 #endif
@@ -36,13 +36,13 @@ namespace
 		if(size)
 			size=algorithm->get().front().size();
 		{
-#if USE_THREAD
+#ifdef USE_THREAD
 			lock_guard<mutex> lock{ofs_mut};
 #endif
 			nTool::show(func.begin(),func.end(),ofs);
 			ofs<<"gate : "<<size<<endl<<endl;
 		}
-#if USE_THREAD
+#ifdef USE_THREAD
 		lock_guard<mutex> lock{accu_mut};
 #endif
 		if(accu.size()<=size)
@@ -56,13 +56,13 @@ int main()
 	using namespace std;
 	nTool::CChrono_timer timer;
 	{
-	#if USE_THREAD
+	#ifdef USE_THREAD
 		nThread::CThreadPool tp{max<unsigned>(4,thread::hardware_concurrency())};
 	#endif
 		Func_t func{0,1,2,3,4,5,6,7};
 		timer.start();
 		do
-	#if USE_THREAD
+	#ifdef USE_THREAD
 			tp.add_and_detach(call_and_output,func);	//copy func, not reference
 	#else
 			call_and_output(func);
