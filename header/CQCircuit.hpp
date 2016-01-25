@@ -2,7 +2,7 @@
 #define CQCIRCUIT
 #include<cstddef>
 #include<memory>
-#include"../../lib/header/tool/CPimpl.h"
+#include"../../lib/header/tool/CPimpl.hpp"
 
 namespace nTool
 {

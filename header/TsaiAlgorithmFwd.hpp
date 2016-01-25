@@ -1,6 +1,6 @@
 #ifndef TSAIALGORITHMFWD
 #define TSAIALGORITHMFWD
-#include"QCFwd.h"
+#include"QCFwd.hpp"
 #include<cstddef>
 
 namespace nTsaiAlgorithm

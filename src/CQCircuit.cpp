@@ -1,11 +1,11 @@
-#include"../header/CQCircuit.h"
+#include"../header/CQCircuit.hpp"
 #include<iterator>	//make_move_iterator
 #include<stdexcept>	//logic_error, invalid_argument
 #include<utility>	//move
 #include<vector>
-#include"../../lib/header/algorithm/algorithm.h"
-#include"../../lib/header/tool/CInsert_iterator.h"
-#include"../header/IQBit.h"
+#include"../../lib/header/algorithm/algorithm.hpp"
+#include"../../lib/header/tool/CInsert_iterator.hpp"
+#include"../header/IQBit.hpp"
 using namespace std;
 
 namespace

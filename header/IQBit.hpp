@@ -2,8 +2,8 @@
 #define IQBIT
 #include<iosfwd>
 #include<vector>
-#include"../../lib/header/tool/Boolean.h"
-#include"QBit.h"
+#include"../../lib/header/tool/Boolean.hpp"
+#include"QBit.hpp"
 
 namespace nQCircuit
 {

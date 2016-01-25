@@ -4,7 +4,7 @@
 #include<cstddef>	//size_t
 #include<functional>	//function
 #include<vector>
-#include"../../lib/header/math/math.h"
+#include"../../lib/header/math/math.hpp"
 
 namespace nHypercube
 {

@@ -1,8 +1,8 @@
-#include"../header/synthesis.h"
+#include"../header/synthesis.hpp"
 #include<bitset>
-#include"../../lib/header/algorithm/algorithm.h"
-#include"../header/CQCircuit.h"
-#include"../header/IQBit.h"
+#include"../../lib/header/algorithm/algorithm.hpp"
+#include"../header/CQCircuit.hpp"
+#include"../header/IQBit.hpp"
 using namespace nQCircuit;
 using namespace std;
 

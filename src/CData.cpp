@@ -1,4 +1,4 @@
-#include"../header/CData.h"
+#include"../header/CData.hpp"
 #include<algorithm>	//for_each, max
 #include<condition_variable>
 #include<iterator>	//back_inserter, distance, make_move_iterator, move_iterator, prev
@@ -8,12 +8,12 @@
 #include<string>
 #include<utility>	//move
 #include<vector>
-#include"../../lib/header/algorithm/algorithm.h"
-#include"../../lib/header/math/math.h"
-#include"../../lib/header/thread/CThread_unordered_map.h"
-#include"../header/CQCircuit.h"
-#include"../header/IQBit.h"
-#include"../header/simplify.h"
+#include"../../lib/header/algorithm/algorithm.hpp"
+#include"../../lib/header/math/math.hpp"
+#include"../../lib/header/thread/CThread_unordered_map.hpp"
+#include"../header/CQCircuit.hpp"
+#include"../header/IQBit.hpp"
+#include"../header/simplify.hpp"
 using namespace nQCircuit;
 using namespace nTsaiAlgorithm;
 using namespace std;

@@ -1,6 +1,6 @@
 #ifndef SYNTHESIS
 #define SYNTHESIS
-#include"QCFwd.h"
+#include"QCFwd.hpp"
 
 namespace nQCircuit
 {

@@ -1,12 +1,12 @@
-#include"../header/QCFwd.h"
+#include"../header/QCFwd.hpp"
 #include<algorithm>	//count_if
 #include<numeric>	//iota
 #include<utility>	//move
-#include"../../lib/header/algorithm/algorithm.h"
-#include"../../lib/header/math/math.h"
-#include"../../lib/header/tool/Boolean.h"
-#include"../header/CQCircuit.h"
-#include"../header/IQBit.h"
+#include"../../lib/header/algorithm/algorithm.hpp"
+#include"../../lib/header/math/math.hpp"
+#include"../../lib/header/tool/Boolean.hpp"
+#include"../header/CQCircuit.hpp"
+#include"../header/IQBit.hpp"
 using namespace std;
 
 namespace

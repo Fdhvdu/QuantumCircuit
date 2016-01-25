@@ -1,4 +1,4 @@
-#include"../header/IQBit.h"
+#include"../header/IQBit.hpp"
 #include<ostream>
 using namespace std;
 

@@ -1,7 +1,7 @@
-#include"../header/simplify.h"
-#include"../../lib/header/algorithm/algorithm.h"
-#include"../header/CQCircuit.h"
-#include"../header/IQBit.h"
+#include"../header/simplify.hpp"
+#include"../../lib/header/algorithm/algorithm.hpp"
+#include"../header/CQCircuit.hpp"
+#include"../header/IQBit.hpp"
 using namespace nQCircuit;
 using namespace std;
 

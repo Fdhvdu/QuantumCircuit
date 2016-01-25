@@ -1,6 +1,6 @@
 #ifndef CTSAIALGORITHM
 #define CTSAIALGORITHM
-#include"QCFwd.h"
+#include"QCFwd.hpp"
 
 namespace nTsaiAlgorithm
 {

@@ -1,8 +1,8 @@
-#include"../header/QCOstream.h"
+#include"../header/QCOstream.hpp"
 #include<ostream>
 #include<memory>
-#include"../header/CQCircuit.h"
-#include"../header/IQBit.h"
+#include"../header/CQCircuit.hpp"
+#include"../header/IQBit.hpp"
 using namespace std;
 
 namespace

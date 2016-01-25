@@ -9,14 +9,14 @@
 #include<utility>	//declval
 #include<type_traits>	//remove_reference
 #include<vector>
-#include"../../lib/header/tool/CChrono_timer.h"
-#include"../../lib/header/tool/show.h"
+#include"../../lib/header/tool/CChrono_timer.hpp"
+#include"../../lib/header/tool/show.hpp"
 #if USE_THREAD
-#include"../../ThreadPool/header/CThreadPool.h"
+#include"../../ThreadPool/header/CThreadPool.hpp"
 #endif
-#include"../header/CQCircuit.h"
-#include"../header/QCFwd.h"
-#include"../header/CTsaiAlgorithm.h"
+#include"../header/CQCircuit.hpp"
+#include"../header/QCFwd.hpp"
+#include"../header/CTsaiAlgorithm.hpp"
 
 namespace
 {

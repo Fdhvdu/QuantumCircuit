@@ -1,4 +1,4 @@
-#include"../header/CTsaiAlgorithm.h"
+#include"../header/CTsaiAlgorithm.hpp"
 #include<algorithm>	//min_element, rotate, sort, transform
 #include<chrono>	//for random
 #include<cstddef>	//size_t
@@ -8,17 +8,17 @@
 #include<random>	//mt19937, uniform_int_distribution
 #include<utility>	//move, pair
 #include<vector>
-#include"../../lib/header/algorithm/algorithm.h"	//for_each_val, unique_without_sort
-#include"../../lib/header/algorithm/exchange_endpoint_by_swapping.h"
-#include"../../lib/header/math/math.h"	//Cantor_pairing_function, factorial, log_2
-#include"../../lib/header/thread/CThread_unordered_map.h"
-#include"../../lib/header/tool/Boolean.h"
-#include"../../lib/header/tool/CInsert_iterator.h"
-#include"../header/TsaiAlgorithmFwd.h"
-#include"../header/CData.h"	//step4_algorithm
-#include"../header/CQCircuit.h"
+#include"../../lib/header/algorithm/algorithm.hpp"	//for_each_val, unique_without_sort
+#include"../../lib/header/algorithm/exchange_endpoint_by_swapping.hpp"
+#include"../../lib/header/math/math.hpp"	//Cantor_pairing_function, factorial, log_2
+#include"../../lib/header/thread/CThread_unordered_map.hpp"
+#include"../../lib/header/tool/Boolean.hpp"
+#include"../../lib/header/tool/CInsert_iterator.hpp"
+#include"../header/TsaiAlgorithmFwd.hpp"
+#include"../header/CData.hpp"	//step4_algorithm
+#include"../header/CQCircuit.hpp"
 #include"../header/path.hpp"
-#include"../header/synthesis.h"
+#include"../header/synthesis.hpp"
 using namespace nQCircuit;
 using namespace nTsaiAlgorithm;
 using namespace std;
