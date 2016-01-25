@@ -17,7 +17,7 @@
 #include"../header/TsaiAlgorithmFwd.h"
 #include"../header/CData.h"	//step4_algorithm
 #include"../header/CQCircuit.h"
-#include"../header/path.h"
+#include"../header/path.hpp"
 #include"../header/synthesis.h"
 using namespace nQCircuit;
 using namespace nTsaiAlgorithm;

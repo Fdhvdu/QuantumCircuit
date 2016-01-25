@@ -1,7 +1,9 @@
-#include"path.h"
+#ifndef PATH
+#define PATH
 #include<algorithm>	//for_each
 #include<cstddef>	//size_t
 #include<functional>	//function
+#include<vector>
 #include"../../lib/header/math/math.h"
 
 namespace nHypercube
@@ -32,4 +34,8 @@ namespace nHypercube
 		create_path_(diff_bit_count,vec,0,vec.size(),0,begin);
 		return vec;
 	}
+	//create_path(0,7)={{0,1,3,7},{0,1,5,7},{0,2,3,7},{0,2,6,7},{0,4,5,7},{0,4,6,7}}
+	//create_path(0,7)={{7,3,1,0},{7,3,2,0},{7,5,1,0},{7,5,4,0},{7,6,2,0},{7,6,4,0}}
 }
+
+#endif
