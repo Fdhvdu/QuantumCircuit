@@ -14,6 +14,7 @@ The directory should look like
 	|               -README.md
 	|
 	-ThreadPool------header
+	                -performance comparison
 	                -src
 	                -tutorial
 	                -LICENSE
