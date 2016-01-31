@@ -100,7 +100,7 @@ namespace
 	{
 		unique_lock<mutex> lock{mut_,defer_lock};
 		const auto key{get_hash_(lhs.key(),rhs.key())};
-		if(complete_.try_emplace_func(key,[&]{lock.lock();return false;}))
+		if(complete_.try_emplace_gen(key,[&]{lock.lock();return false;}))
 		{
 			move_insert(data_,combine_(lhs,rhs));
 			erase_equal(data_);
@@ -123,7 +123,7 @@ namespace
 		static nThread::CThread_unordered_map<size_t,nThread::CThread_unordered_map<CData::key_t,Data_t>> pool;
 		const auto key{combine_key(lhs->key(),rhs->key())};	//it means combination, not func
 															//use func as key is cheating
-		if(!pool[level].try_emplace_func(key,[&]{return make_shared<Data_t::element_type>(key,*lhs,*rhs);}))
+		if(!pool[level].try_emplace_gen(key,[&]{return make_shared<Data_t::element_type>(key,*lhs,*rhs);}))
 			pool.at(level).at(key)->insert(*lhs,*rhs);
 		if(!des)
 			des=pool.at(level).at(key);

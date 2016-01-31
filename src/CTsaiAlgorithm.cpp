@@ -112,7 +112,7 @@ namespace
 		for(size_t i{cycle.size()-1};i;--i)
 		{
 			const PoolKey_t key{cycle[i],cycle[i-1]};
-			pool.try_emplace_func(key,[&,bit,i]{
+			pool.try_emplace_gen(key,[&,bit,i]{
 				const vector<vector<Cycle_t::value_type::value_type>> path{nHypercube::create_path(cycle[i],cycle[i-1])};
 				vec_CQCircuit temp;
 				for(const vector<Cycle_t::value_type::value_type> &val:path)
