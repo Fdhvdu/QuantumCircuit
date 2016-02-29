@@ -34,7 +34,7 @@ namespace
 	}
 }
 
-ICircuitAlgorithm::~ICircuitAlgorithm(){}
+ICircuitAlgorithm::~ICircuitAlgorithm()=default;
 
 size_t calc_func_num(const Func_t &func) noexcept
 {
@@ -71,7 +71,7 @@ Func_t get_func_after_circuit(Func_t &&rVal,const nQCircuit::CQCircuit &circuit)
 	nAlgorithm::for_each_val<size_t>(0,circuit.size(),[&](const auto i){
 		rVal=get_func_after_gate(move(rVal),circuit[i]);
 	});
-	return rVal;
+	return move(rVal);	//use move instead of copy
 }
 
 Func_t get_func_after_gate(const Func_t &func,const nQCircuit::CQGate &gate)
@@ -84,7 +84,7 @@ Func_t get_func_after_gate(Func_t &&rVal,const nQCircuit::CQGate &gate)
 {
 	for(auto &val:rVal)
 		operate(gate,val);
-	return rVal;
+	return move(rVal);	//use move instead of copy
 }
 
 Func_t get_gate_func(const nQCircuit::CQGate &gate)
