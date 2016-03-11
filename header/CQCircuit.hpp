@@ -6,7 +6,7 @@
 
 namespace nTool
 {
-	template<class T,class Hold,class RefFunc_t,class MoveFunc_t>
+	template<class T,class Holder,class RefFunc_t,RefFunc_t RefFunc,class MoveFunc_t,MoveFunc_t MoveFunc>
 	class CInsert_iterator;
 }
 
@@ -68,9 +68,9 @@ namespace nQCircuit
 		return !(lhs!=rhs);
 	}
 
-	nTool::CInsert_iterator<CQGate,CQCircuit,void(CQCircuit::*)(const CQGate &),void(CQCircuit::*)(CQGate &&)> make_CQGate_inserter(CQCircuit &);
+	nTool::CInsert_iterator<CQGate,CQCircuit,void(CQCircuit::*)(const CQGate &),&CQCircuit::attach,void(CQCircuit::*)(CQGate &&),&CQCircuit::attach> make_CQGate_inserter(CQCircuit &);
 
-	nTool::CInsert_iterator<CQCircuit,CQCircuit,void(CQCircuit::*)(const CQCircuit &),void(CQCircuit::*)(CQCircuit &&)> make_CQCircuit_inserter(CQCircuit &);
+	nTool::CInsert_iterator<CQCircuit,CQCircuit,void(CQCircuit::*)(const CQCircuit &),&CQCircuit::attach,void(CQCircuit::*)(CQCircuit &&),&CQCircuit::attach> make_CQCircuit_inserter(CQCircuit &);
 
 	std::unique_ptr<const IQBit> copy_QBit(const std::unique_ptr<const IQBit> &);
 	
