@@ -13,6 +13,7 @@
 #include"../../lib/header/math/math.hpp"	//Cantor_pairing_function, factorial, log_2
 #include"../../lib/header/thread/CThread_unordered_map.hpp"
 #include"../../lib/header/tool/Boolean.hpp"
+#include"../../lib/header/tool/CInsert_iterator.hpp"
 #include"../header/TsaiAlgorithmFwd.hpp"
 #include"../header/CData.hpp"	//step4_algorithm
 #include"../header/CQCircuit.hpp"
