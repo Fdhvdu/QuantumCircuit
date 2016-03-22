@@ -31,10 +31,8 @@ public:
 
 std::size_t calc_func_num(const Func_t &) noexcept;
 Func_t get_circuit_func(const nQCircuit::CQCircuit &);
-Func_t get_func_after_circuit(const Func_t &,const nQCircuit::CQCircuit &);
-Func_t get_func_after_circuit(Func_t &&,const nQCircuit::CQCircuit &);
-Func_t get_func_after_gate(const Func_t &,const nQCircuit::CQGate &);
-Func_t get_func_after_gate(Func_t &&,const nQCircuit::CQGate &);
+Func_t get_func_after_circuit(Func_t,const nQCircuit::CQCircuit &);
+Func_t get_func_after_gate(Func_t,const nQCircuit::CQGate &);
 Func_t get_gate_func(const nQCircuit::CQGate &);
 Func_t reverse_func(const Func_t &);
 
