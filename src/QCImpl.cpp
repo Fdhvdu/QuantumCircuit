@@ -60,31 +60,19 @@ Func_t get_circuit_func(const nQCircuit::CQCircuit &circuit)
 	return get_func_after_circuit(move(temp),circuit);
 }
 
-Func_t get_func_after_circuit(const Func_t &func,const nQCircuit::CQCircuit &circuit)
-{
-	auto temp{func};
-	return get_func_after_circuit(move(temp),circuit);
-}
-
-Func_t get_func_after_circuit(Func_t &&rVal,const nQCircuit::CQCircuit &circuit)
+Func_t get_func_after_circuit(Func_t func,const nQCircuit::CQCircuit &circuit)
 {
 	nAlgorithm::for_each_val<size_t>(0,circuit.size(),[&](const auto i){
-		rVal=get_func_after_gate(move(rVal),circuit[i]);
+		func=get_func_after_gate(move(func),circuit[i]);
 	});
-	return move(rVal);	//use move instead of copy
+	return move(func);	//use move instead of copy
 }
 
-Func_t get_func_after_gate(const Func_t &func,const nQCircuit::CQGate &gate)
+Func_t get_func_after_gate(Func_t func,const nQCircuit::CQGate &gate)
 {
-	auto temp{func};
-	return get_func_after_gate(move(temp),gate);
-}
-
-Func_t get_func_after_gate(Func_t &&rVal,const nQCircuit::CQGate &gate)
-{
-	for(auto &val:rVal)
+	for(auto &val:func)
 		operate(gate,val);
-	return move(rVal);	//use move instead of copy
+	return move(func);	//use move instead of copy
 }
 
 Func_t get_gate_func(const nQCircuit::CQGate &gate)
