@@ -11,7 +11,7 @@
 #include"../../lib/header/algorithm/algorithm.hpp"	//for_each_val, unique_without_sort
 #include"../../lib/header/algorithm/exchange_endpoint_by_swapping.hpp"
 #include"../../lib/header/math/math.hpp"	//Cantor_pairing_function, factorial, log_2
-#include"../../lib/header/thread/CThread_unordered_map.hpp"
+#include"../../lib/header/thread/CLock_unordered_map.hpp"
 #include"../../lib/header/tool/Boolean.hpp"
 #include"../../lib/header/tool/CInsert_iterator.hpp"
 #include"../header/TsaiAlgorithmFwd.hpp"
@@ -108,7 +108,7 @@ namespace
 
 	void find_path_impl(const Cycle_t::value_type &cycle,vec_const_vec_CQCircuit_ptr &vec,const size_t bit)
 	{
-		static nThread::CThread_unordered_map<PoolKey_t,vec_CQCircuit> pool;
+		static nThread::CLock_unordered_map<PoolKey_t,vec_CQCircuit> pool;
 		for(size_t i{cycle.size()-1};i;--i)
 		{
 			const PoolKey_t key{cycle[i],cycle[i-1]};

@@ -10,7 +10,7 @@
 #include<vector>
 #include"../../lib/header/algorithm/algorithm.hpp"
 #include"../../lib/header/math/math.hpp"
-#include"../../lib/header/thread/CThread_unordered_map.hpp"
+#include"../../lib/header/thread/CLock_unordered_map.hpp"
 #include"../header/CQCircuit.hpp"
 #include"../header/IQBit.hpp"
 #include"../header/simplify.hpp"
@@ -26,7 +26,7 @@ namespace
 		typedef string key_t;	//when your bit is higher than 7, you have to use another type
 	private:
 		typedef string hash_t;	//when your bit is higher than 7, you have to use another type
-		nThread::CThread_unordered_map<hash_t,bool> complete_;
+		nThread::CLock_unordered_map<hash_t,bool> complete_;
 		condition_variable cv_;
 		vec_CQCircuit data_;
 		const key_t key_;
@@ -120,7 +120,7 @@ namespace
 	
 	void combine(const Data_t &lhs,const Data_t &rhs,const size_t level,Data_t &des)
 	{
-		static nThread::CThread_unordered_map<size_t,nThread::CThread_unordered_map<CData::key_t,Data_t>> pool;
+		static nThread::CLock_unordered_map<size_t,nThread::CLock_unordered_map<CData::key_t,Data_t>> pool;
 		const auto key{combine_key(lhs->key(),rhs->key())};	//it means combination, not func
 															//use func as key is cheating
 		if(!pool[level].try_emplace_gen(key,[&]{return make_shared<Data_t::element_type>(key,*lhs,*rhs);}))
