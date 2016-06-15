@@ -1,4 +1,3 @@
-//requirements: x64 and C++14
 #define USE_THREAD
 #include<fstream>
 #include<memory>	//make_unique
