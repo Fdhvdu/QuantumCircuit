@@ -18,7 +18,9 @@ namespace nTsaiAlgorithm
 		CTsaiAlgorithm& operator=(const CTsaiAlgorithm &)=delete;
 	};
 
-	class CRandom_TsaiAlgorithm:public ICircuitAlgorithm	//uniform_int_distribution and mt19937
+	//1. it uses uniform_int_distribution and mt19937 to randomly create circuit
+	//2. the result of this algorithm is not accurate, but runs very fast
+	class CRandom_TsaiAlgorithm:public ICircuitAlgorithm
 	{
 		vec_CQCircuit result_;
 	public:
