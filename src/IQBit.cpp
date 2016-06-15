@@ -4,7 +4,7 @@ using namespace std;
 
 namespace nQCircuit
 {
-	IQBit::~IQBit(){}
+	IQBit::~IQBit()=default;
 
 	ostream& operator<<(ostream &os,const IQBit &val)
 	{
@@ -13,22 +13,22 @@ namespace nQCircuit
 
 	ostream& Q_empty_bit::print(ostream &os) const
 	{
-		return os<<"¢q";
+		return os<<"\u253c";
 	}
 
 	ostream& Q_not_bit::print(ostream &os) const
 	{
-		return os<<"¡ò";
+		return os<<"\u2295";
 	}
 
 	ostream& Q_controlled_not_bit::print(ostream &os) const
 	{
-		return os<<"¡´";
+		return os<<"\u25cf";
 	}
 
 	ostream& Q_white_controlled_not_bit::print(ostream &os) const
 	{
-		return os<<"¡³";
+		return os<<"\u25cb";
 	}
 
 	//this is an example to help you understand how to use IQBit correctly
