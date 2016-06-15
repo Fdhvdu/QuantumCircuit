@@ -30,7 +30,7 @@ The directory should look like
 	                -tutorial
 	                -LICENSE
 	                -README.md
-Don't forget to compile ThreadPool/src/*.cpp, lib/src/CScopeGuard.cpp and lib/src/CSemaphore.cpp.
+Don't forget to compile ThreadPool/src/*, lib/src/CScopeGuard.cpp and lib/src/CSemaphore.cpp.
 # About compilation errors
 Q: My compiler doesn't support C++14<br>
 A: Get a newer compiler version, such as GCC 5.3.0 or VC++ 14.2 (inside Visual Studio Community 2015 Update 2)<br><br>
@@ -38,4 +38,4 @@ Q: Other problems<br>
 A: See [How to compile](https://github.com/Fdhvdu/QuantumCircuit/blob/master/README.md#how-to-compile)
 # Tutorial
 See [main.cpp](https://github.com/Fdhvdu/QuantumCircuit/blob/master/src/main.cpp), [QCFwd.cpp](https://github.com/Fdhvdu/QuantumCircuit/blob/master/header/QCFwd.hpp) and [CTsaiAlgorithm.cpp](https://github.com/Fdhvdu/QuantumCircuit/blob/master/header/CTsaiAlgorithm.hpp)<br>
-g++ -std=c++14 src/*.cpp ../ThreadPool/src/*.cpp ../lib/src/CScopeGuard.cpp ../lib/src/CSemaphore.cpp
+g++ -std=c++14 src/* ../ThreadPool/src/* ../lib/src/CScopeGuard.cpp ../lib/src/CSemaphore.cpp
