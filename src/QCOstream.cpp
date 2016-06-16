@@ -9,12 +9,12 @@ namespace
 {
 	inline void print_space(ostream &os)
 	{
-		os<<"¡@";
+		os<<"\u3000";
 	}
 
 	inline void print_column(ostream &os)
 	{
-		os<<"¢x";
+		os<<"\u2502";
 	}
 
 	void print_IQBit_or_space(ostream &os,const unique_ptr<const nQCircuit::IQBit> &qbit)
@@ -27,7 +27,7 @@ namespace
 
 	inline void print_row(ostream &os)
 	{
-		os<<"¢w";
+		os<<"\u2500";
 	}
 }
 
