@@ -2,7 +2,7 @@
 #define CQCIRCUIT
 #include<cstddef>
 #include<memory>
-#include"../../lib/header/tool/CPimpl.hpp"
+#include"../../lib/header/tool/CUnique_obj.hpp"
 
 namespace nTool
 {
@@ -17,7 +17,7 @@ namespace nQCircuit
 	class CQGate
 	{
 		struct Impl;
-		nTool::CPimpl<Impl> impl_;
+		nTool::CUnique_obj<Impl> impl_;
 	public:
 		explicit CQGate(std::size_t);
 		CQGate(const CQGate &);
@@ -40,7 +40,7 @@ namespace nQCircuit
 	class CQCircuit
 	{
 		struct Impl;
-		nTool::CPimpl<Impl> impl_;
+		nTool::CUnique_obj<Impl> impl_;
 	public:
 		explicit CQCircuit(std::size_t);
 		CQCircuit(const CQCircuit &);

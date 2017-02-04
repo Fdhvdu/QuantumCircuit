@@ -63,35 +63,35 @@ namespace nQCircuit
 		:impl_{val.impl_}{}
 
 	CQGate::CQGate(CQGate &&val) noexcept
-		:impl_{val.gate_size(),move(val.impl_.get().gate)}{}
+		:impl_{val.gate_size(),move(val.impl_->gate)}{}
 
 	size_t CQGate::gate_size() const noexcept
 	{
-		return impl_.get().gateSize;
+		return impl_->gateSize;
 	}
 	
 	CQGate& CQGate::operator=(const CQGate &val)
 	{
 		check_size(gate_size(),val.gate_size());
-		impl_.get()=val.impl_.get();
+		*impl_=*val.impl_;
 		return *this;
 	}
 
 	CQGate& CQGate::operator=(CQGate &&rVal)
 	{
 		check_size(gate_size(),rVal.gate_size());
-		impl_.get().gate=move(rVal.impl_.get().gate);
+		impl_->gate=move(rVal.impl_->gate);
 		return *this;
 	}
 
 	unique_ptr<const IQBit>& CQGate::operator[](const size_t subscript)
 	{
-		return impl_.get().gate[subscript];
+		return impl_->gate[subscript];
 	}
 
 	const unique_ptr<const IQBit>& CQGate::operator[](const size_t subscript) const
 	{
-		return impl_.get().gate[subscript];
+		return impl_->gate[subscript];
 	}
 
 	CQGate::~CQGate(){}
@@ -136,79 +136,79 @@ namespace nQCircuit
 		:impl_{val.impl_}{}
 
 	CQCircuit::CQCircuit(CQCircuit &&val) noexcept
-		:impl_{val.gate_size(),move(val.impl_.get().circuit)}{}
+		:impl_{val.gate_size(),move(val.impl_->circuit)}{}
 
 	void CQCircuit::attach(const CQCircuit &val)
 	{
 		check_size(gate_size(),val.gate_size());
-		impl_.get().attach(val.impl_.get().circuit);
+		impl_->attach(val.impl_->circuit);
 	}
 
 	void CQCircuit::attach(CQCircuit &&rVal)
 	{
 		check_size(gate_size(),rVal.gate_size());
-		impl_.get().attach(move(rVal.impl_.get().circuit));
+		impl_->attach(move(rVal.impl_->circuit));
 	}
 
 	void CQCircuit::attach(const CQGate &val)
 	{
 		check_size(gate_size(),val.gate_size());
-		impl_.get().circuit.emplace_back(val);
+		impl_->circuit.emplace_back(val);
 	}
 
 	void CQCircuit::attach(CQGate &&rVal)
 	{
 		check_size(gate_size(),rVal.gate_size());
-		impl_.get().circuit.emplace_back(move(rVal));
+		impl_->circuit.emplace_back(move(rVal));
 	}
 
 	void CQCircuit::erase(const size_t subscript)
 	{
-		impl_.get().erase(subscript);
+		impl_->erase(subscript);
 	}
 
 	size_t CQCircuit::gate_size() const noexcept
 	{
-		return impl_.get().gateSize;
+		return impl_->gateSize;
 	}
 
 	void CQCircuit::reserve(const size_t new_cap)
 	{
-		impl_.get().circuit.reserve(new_cap);
+		impl_->circuit.reserve(new_cap);
 	}
 
 	void CQCircuit::shrink_to_fit()
 	{
-		impl_.get().circuit.shrink_to_fit();
+		impl_->circuit.shrink_to_fit();
 	}
 
 	size_t CQCircuit::size() const noexcept
 	{
-		return impl_.get().circuit.size();
+		return impl_->circuit.size();
 	}
 
 	CQCircuit& CQCircuit::operator=(const CQCircuit &val)
 	{
 		check_size(gate_size(),val.gate_size());
-		impl_.get().circuit=val.impl_.get().circuit;
+		impl_->circuit=val.impl_->circuit;
 		return *this;
 	}
 
 	CQCircuit& CQCircuit::operator=(CQCircuit &&rVal)
 	{
 		check_size(gate_size(),rVal.gate_size());
-		impl_.get().circuit=move(rVal.impl_.get().circuit);
+		impl_->circuit=move(rVal.impl_->circuit);
 		return *this;
 	}
 
 	CQGate& CQCircuit::operator[](const size_t subscript)
 	{
-		return impl_.get().circuit[subscript];
+		return impl_->circuit[subscript];
 	}
 
 	const CQGate& CQCircuit::operator[](const size_t subscript) const
 	{
-		return impl_.get().circuit[subscript];
+		return impl_->circuit[subscript];
 	}
 
 	CQCircuit::~CQCircuit(){}
