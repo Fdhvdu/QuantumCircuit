@@ -11,9 +11,12 @@ namespace
 	{
 		bool both{false};
 		return nAlgorithm::find_if_val<size_t>(0,lhs.gate_size(),[&](const auto i){
-			return lhs[i]->info()==QBit::NOT&&rhs[i]->info()==QBit::NOT
-				||(lhs[i]->info()==QBit::CONTROLLED_NOT&&rhs[i]->info()==QBit::WHITE_CONTROLLED_NOT||lhs[i]->info()==QBit::WHITE_CONTROLLED_NOT&&rhs[i]->info()==QBit::CONTROLLED_NOT)
-				||((lhs[i]->info()==QBit::NOT&&rhs[i]->info()==QBit::EMPTY||lhs[i]->info()==QBit::EMPTY&&rhs[i]->info()==QBit::NOT)&&!(both=!both));
+			return ((lhs[i]->info()==QBit::NOT)&&(rhs[i]->info()==QBit::NOT))
+				||(((lhs[i]->info()==QBit::CONTROLLED_NOT)&&(rhs[i]->info()==QBit::WHITE_CONTROLLED_NOT))
+				   ||((lhs[i]->info()==QBit::WHITE_CONTROLLED_NOT)&&(rhs[i]->info()==QBit::CONTROLLED_NOT)))
+				||((((lhs[i]->info()==QBit::NOT)&&(rhs[i]->info()==QBit::EMPTY))
+					||((lhs[i]->info()==QBit::EMPTY)&&(rhs[i]->info()==QBit::NOT)))
+				   &&!(both=!both));
 		})!=lhs.gate_size();
 	}
 
