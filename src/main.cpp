@@ -56,13 +56,13 @@ int main()
 	nTool::CChrono_timer timer;
 	{
 	#ifdef USE_THREAD
-		nThread::CThreadPool tp{max<unsigned>(4,thread::hardware_concurrency())};
+		nThread::CThreadPool tp;
 	#endif
 		Func_t func{0,1,2,3,4,5,6,7};
 		timer.start();
 		do
 	#ifdef USE_THREAD
-			tp.add_and_detach(call_and_output,func);	//copy func, not reference
+			tp.add_and_detach(call_and_output,Func_t(func));	//copy func, not reference
 	#else
 			call_and_output(func);
 	#endif
@@ -73,5 +73,4 @@ int main()
 		<<timer.duration_seconds()%60<<"\tseconds"<<endl
 		<<timer.duration_milliseconds()%1000<<"\tmilliseconds"<<endl;
 	nTool::show(accu.begin(),accu.end(),ofs);
-	system("PAUSE");
 }
