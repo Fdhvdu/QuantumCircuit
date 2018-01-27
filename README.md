@@ -13,23 +13,24 @@ or any compiler which supports C++14<br>
 You have to download [my lib](https://github.com/Fdhvdu/lib) and [ThreadPool](https://github.com/Fdhvdu/ThreadPool)<br>
 The directory should look like
 
-	-QuantumCircuit--header
-	|               -src
-	|               -LICENSE
-	|               -README.md
-	|
-	-lib-------------header
-	|               -src
-	|               -tutorial
-	|               -LICENSE
-	|               -README.md
-	|
-	-ThreadPool------header
-	                -performance comparison
-	                -src
-	                -tutorial
-	                -LICENSE
-	                -README.md
+	├── lib
+	│   ├── header
+	│   ├── LICENSE
+	│   ├── README.md
+	│   ├── src
+	│   └── tutorial
+	├── QuantumCircuit
+	│   ├── header
+	│   ├── LICENSE
+	│   ├── README.md
+	│   └── src
+	└── ThreadPool
+	    ├── comparison
+	    ├── header
+	    ├── LICENSE
+	    ├── README.md
+	    ├── src
+	    └── tutorial
 Don't forget to compile ThreadPool/src/* and lib/src/CScopeGuard.cpp.
 # About compilation errors
 Q: My compiler doesn't support C++14<br>
@@ -38,4 +39,4 @@ Q: Other problems<br>
 A: See [How to compile](https://github.com/Fdhvdu/QuantumCircuit/blob/master/README.md#how-to-compile) or email me
 # Tutorial
 See [main.cpp](https://github.com/Fdhvdu/QuantumCircuit/blob/master/src/main.cpp), [QCFwd.cpp](https://github.com/Fdhvdu/QuantumCircuit/blob/master/header/QCFwd.hpp) and [CTsaiAlgorithm.cpp](https://github.com/Fdhvdu/QuantumCircuit/blob/master/header/CTsaiAlgorithm.hpp)<br>
-g++ -std=c++14 src/* ../ThreadPool/src/* ../lib/src/CScopeGuard.cpp
+g++ -std=c++14 src/* ../lib/src/CScopeGuard.cpp ../ThreadPool/src/*
