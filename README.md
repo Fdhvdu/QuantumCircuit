@@ -2,7 +2,7 @@
 [Algorithm](https://github.com/Fdhvdu/QuantumCircuit/blob/master/README.md#algorithm)<br>
 [Compiler](https://github.com/Fdhvdu/QuantumCircuit/blob/master/README.md#compiler)<br>
 [How to compile](https://github.com/Fdhvdu/QuantumCircuit/blob/master/README.md#how-to-compile)<br>
-[About compilation errors](https://github.com/Fdhvdu/QuantumCircuit/blob/master/README.md#about-compilation-errors)<br>
+[Compilation errors](https://github.com/Fdhvdu/QuantumCircuit/blob/master/README.md#compilation-errors)<br>
 [Tutorial](https://github.com/Fdhvdu/QuantumCircuit/blob/master/README.md#tutorial)
 # Algorithm
 # Compiler
