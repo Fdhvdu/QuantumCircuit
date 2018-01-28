@@ -6,9 +6,9 @@
 [Tutorial](https://github.com/Fdhvdu/QuantumCircuit/blob/master/README.md#tutorial)
 # Algorithm
 # Compiler
-VC++ 14.2<br>
-or any compiler which supports C++14<br>
-(you had better compile the source code in x64, because the memory usage is very high when the macro `USE_THREAD` is enable)
+	g++ 7.2.1
+	clang++ 5.0.1
+(When you are using Visual Studio, you had better compile the source code in x64, because the memory usage is very high when the macro `USE_THREAD` is enable)
 # How to compile
 You have to download [my lib](https://github.com/Fdhvdu/lib) and [ThreadPool](https://github.com/Fdhvdu/ThreadPool)<br>.
 The directory should look like
@@ -32,11 +32,8 @@ The directory should look like
 	    ├── src
 	    └── tutorial
 Don't forget to compile `lib/src/CScopeGuard.cpp` and `ThreadPool/src/*`.
-# About compilation errors
-Q: My compiler doesn't support C++14<br>
-A: Get a newer compiler version, such as GCC 5.3.0 or VC++ 14.2 (inside Visual Studio Community 2015 Update 2)<br><br>
-Q: Other problems<br>
-A: See [How to compile](https://github.com/Fdhvdu/QuantumCircuit/blob/master/README.md#how-to-compile) or email me
+# Compilation errors?
+See [How to compile](https://github.com/Fdhvdu/QuantumCircuit/blob/master/README.md#how-to-compile) or email me
 # Tutorial
 See [main.cpp](https://github.com/Fdhvdu/QuantumCircuit/blob/master/src/main.cpp), [QCFwd.cpp](https://github.com/Fdhvdu/QuantumCircuit/blob/master/header/QCFwd.hpp) and [CTsaiAlgorithm.cpp](https://github.com/Fdhvdu/QuantumCircuit/blob/master/header/CTsaiAlgorithm.hpp)<br>
 if `USE_THREAD` is enable
